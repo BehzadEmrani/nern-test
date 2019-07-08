@@ -1,0 +1,611 @@
+@font-face {
+    font-family: BYekan;
+    src: url("../fonts/BYekan.ttf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: BYekan;
+}
+
+pre{
+    white-space: pre-wrap;       /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;
+}
+
+#header {
+    position: fixed;
+    height: 80px;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 2;
+}
+
+#siteContent {
+    position: fixed;
+    top: 80px;
+    bottom: 40px;
+    right: 0;
+    left: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+#footer {
+    position: fixed;
+    height: 40px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    direction: rtl;
+    text-align: center;
+    border-top-width: thin;
+    border-top-style: solid;
+    padding: 10px;
+    background: white;
+    font-size: 6pt;
+}
+
+#copyRight {
+    display: none;
+    height: 80px;
+    direction: rtl;
+    text-align: center;
+    border-top: 1px solid;
+    padding: 10px;
+}
+
+.lanGroup {
+    font-size: 11pt;
+    left: 0;
+    top: 0;
+    padding: 10px;
+    position: absolute;
+    font-family: Arial;
+}
+
+.lanPop {
+    position: relative;
+    display: inline-block;
+}
+
+.lanPop a {
+    padding: 4px;
+    text-decoration: none;
+    color: #000;
+}
+
+.lanPopContent {
+    z-index: 5;
+    margin-right: -200px;
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    text-align: center;
+    width: 200px;
+    padding: 15px 0;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+.lanPop:hover .lanPopContent {
+    display: block;
+}
+
+.lanPopContent {
+    z-index: 2;
+    margin-right: -200px;
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    text-align: center;
+    width: 200px;
+    padding: 15px 0;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+.lanAnchor {
+}
+
+#langBtn {
+    position: absolute;
+    display: none;
+    text-decoration: none;
+    color: black !important;
+    margin-left: 5px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.langResponsive {
+    position: absolute;
+    left: 5px;
+}
+
+#topLogoAnchor:focus {
+    outline: none !important;
+}
+
+#topLogo {
+    float: right;
+    height: 55px;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+#homeBtn {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    padding: 10px;
+    display: block;
+    color: #000;
+    text-align: center;
+    text-decoration: none;
+    font-size: 17px;
+    z-index: 1;
+}
+
+@media screen and (max-width: 500px) {
+    .lanGroup {
+        display: none;
+    }
+
+    #langBtn {
+        display: block;
+    }
+
+    .lanPop a {
+        padding: 0px;
+        font-size: 8pt;
+    }
+
+}
+
+#homeBtn img {
+    width: 20px;
+    margin-bottom: 3px;
+    margin-left: 3px;
+}
+
+#homeBtn:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.topnav {
+    overflow: hidden;
+    background: white;
+}
+
+.topnav .optionsBtn {
+    font-size: 15px;
+    display: none;
+    float: right;
+    color: #000;
+    text-align: center;
+    padding: 12px 16px;
+    text-decoration: none;
+    margin-top: 5px;
+}
+
+.topnav a:not(#topLogoAnchor):not(.optionsBtn) {
+    float: right;
+    display: block;
+    color: #000;
+    margin-top: 5px;
+    text-align: center;
+    padding: 12px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.topnav a:not(#topLogoAnchor):hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.formItem {
+    display: inline-block;
+    margin: 10px 0;
+}
+
+.formBox {
+    max-width: 1200px;
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-top: 20px;
+    padding: 10px 30px;
+    direction: rtl;
+    border: 1px solid #41709c;
+}
+
+.formInput {
+    height: 30px;
+    border: 1px solid black;
+    padding: 0 10px;
+}
+
+.formInputDeactive {
+    background: #ccc;
+}
+
+.formSelect {
+    height: 30px;
+    border: 1px solid;
+    direction: rtl;
+}
+
+.formBtn {
+    padding: 2px 20px;
+    color: white;
+}
+
+.uploadBtn {
+    height: 30px;
+    width: 30px;
+    transform: translate(0, 12px);
+    margin-right: 10px;
+    background: url(../images/upload.png) no-repeat;
+    background-size: 30px 30px;
+    border: none;
+    -webkit-appearance: none;
+}
+
+.formGetLink {
+    color: #c3c3c3;
+    text-decoration: none;
+}
+
+.formRow {
+    display: block;
+}
+
+.formTable {
+    border: 2px solid black;
+    width: 100%;
+}
+
+.formTable caption {
+    padding: 10px 0;
+    color: #000;
+    font-size: 12pt;
+    text-align: center;
+}
+
+.formTable td, .formTable th {
+    border-bottom: 1px solid #101010;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    text-align: center;
+    padding: 6px;
+    height: 30px;
+}
+
+.formTable th {
+    border-bottom: 2px solid black;
+}
+
+.actionIconCol {
+    padding: 0 !important;
+}
+
+.actionIconCol img {
+    height: 20px;
+}
+
+@media screen and (max-width: 500px) {
+    .formTable td, .formTable th {
+        font-size: 2.8vw;
+    }
+
+    .formTable {
+        margin-right: -29px;
+        width: 99vw;
+    }
+}
+
+#mapCon {
+    text-align: center;
+    position: absolute;
+    right: 660px;
+    top: 170px;
+    width: 420px;
+    height: 260px;
+    padding-bottom: 50px;
+}
+
+.mapChoose {
+    width: 100%;
+    height: 100%;
+    background: #e5e3df;
+    border: 1px solid #41709c;
+}
+
+.mapShow {
+    width: 100%;
+    height: 100%;
+    background: #e5e3df;
+    border: 1px solid #41709c;
+}
+
+#mapBottom {
+    margin-top: -270px;
+
+}
+
+.aboutBox {
+    float: right;
+}
+
+@media screen and (min-width: 1225px) {
+    .formBox {
+        margin: auto;
+        margin-top: 20px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .topnav a:not(.optionsBtn):not(#topLogoAnchor):not(.menuBtn) {
+        display: none;
+        padding: 17px 16px;
+        margin-top: 0;
+    }
+
+    .topnav a.optionsBtn {
+        position: absolute;
+        float: right;
+        top: 0;
+        display: block;
+    }
+
+    .topnav.responsive {
+        position: relative;
+    }
+
+    .topnav.responsive .optionsBtn {
+        background-color: #aaa;
+        position: absolute;
+        float: right;
+        top: 0;
+        display: block;
+    }
+
+    #firstNavItem {
+        margin-top: 70px !important;
+        border-top: 1px solid;
+    }
+
+    .topnav.responsive a:not(.optionsBtn):not(.menuBtn):not(#topLogoAnchor) {
+        float: none !important;
+        display: block !important;
+        position: relative;
+        background-color: white;
+        text-align: center;
+        border-bottom: 1px solid;
+    }
+
+    .aboutBox {
+        float: none;
+    }
+
+    #mapBottom {
+        margin-top: 0;
+    }
+
+    .formItem input {
+        max-width: 280px;
+    }
+
+    #formFileInput {
+        max-width: 210px;
+    }
+
+    .formBox {
+        padding: 10px 20px;
+        margin: 0;
+    }
+
+    .longTextBox {
+        height: 500px !important;
+    }
+}
+
+@media screen and (max-width: 1150px) {
+
+    #mapCon {
+        position: static;
+        right: 0;
+        margin: auto;
+        height: 270px;
+    }
+
+    #afterMapRow {
+        padding-bottom: 0 !important;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    #mapCon {
+        width: 270px;
+        height: 200px;
+    }
+}
+
+.formFileInput {
+    width: 1px;
+    visibility: hidden;
+    display: inline !important;
+}
+
+.formFileInputTxt {
+    direction: ltr;
+    font-family: Arial;
+}
+
+.formFileInputBtn, .formFileInputBtn:hover, .formFileInputBtn:focus {
+    color: #fff !important;
+}
+
+.emailInput, .domainInput, .numberInput {
+    direction: ltr;
+}
+
+.mapBox {
+    text-align: center;
+    max-width: 600px;
+    margin: auto;
+    margin-top: 10px;
+    padding: 10px 30px;
+    direction: rtl;
+    border: 1px solid #41709c;
+    margin-bottom: 120px;
+}
+
+.selectedLink {
+    color: #E31E24 !important;
+}
+
+.selectedLinkHeader {
+    background: #265989 !important;
+}
+
+.ammapDescriptionWindowParent {
+    top: 130px !important;
+    bottom: 5px !important;
+    left: 5px !important;
+}
+
+.ammapDescriptionWindow {
+    background-color: #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 10px;
+    opacity: 0.95;
+    right: 0 !important;
+    top: 0 !important;
+    left: initial !important;
+    max-height: 100% !important;
+    position: relative !important;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.ammapDescriptionTitle {
+    font-weight: bold;
+    font-size: 15px !important;
+    margin-bottom: 10px;
+    text-align: center;
+    font-family: BYekan !important;
+}
+
+.formFileInputCon {
+    display: block;
+}
+
+.nrenMapName {
+    font-family: BYekan;
+    font-size: 13px;
+    text-align: right;
+    margin-right: 10px;
+}
+
+.nrenMapImage {
+    display: block;
+    margin: auto;
+    margin-bottom: 15px;
+    width: 200px;
+}
+
+.ammapDescriptionWindowCloseButton {
+    float: none !important;
+    position: absolute !important;
+    right: 10px !important;
+}
+
+.nrenMapDesc {
+    text-align: center;
+    font-family: BYekan;
+    font-size: 10px;
+    margin: 5px;
+}
+
+.nrenMapUrl {
+    font-family: BYekan;
+    font-size: 12px;
+    text-align: right;
+    margin-right: 10px;
+}
+
+.news-header {
+    text-decoration: none !important;
+}
+
+.news-header h3 {
+    text-align: center;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.news-con {
+    border: 1px solid #41709c;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px 0;
+}
+
+.news-collapse {
+    border-top: 1px solid;
+    padding: 10px 0;
+    width: 100%;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.fixed-table tr {
+    width: 100%;
+    display: inline-table;
+    table-layout: fixed;
+}
+
+.fixed-table {
+    max-width: 1130px;
+    border: 1px solid #41709c;
+    width: 80vw !important;
+    height: 300px;
+    display: -moz-groupbox;
+    font-size: 12px;
+    margin: 10px auto;
+}
+
+.fixed-table tbody {
+    max-width: 1130px;
+    padding: 0 3px !important;
+    width: 80vw !important;;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    height: 260px;
+    position: absolute;
+}
+
+.fixed-table td, table th {
+    text-align: center;
+}
+
+.operatorBox a {
+    margin: auto;
+}
+
+.operatorBox img {
+    width: 25px;
+}
+.countUp{
+    color: #c00;
+    text-align: center;
+    font-size: 4vw;
+    font-weight: bold;
+}
+.notEmptyInput{}

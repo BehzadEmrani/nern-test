@@ -1,0 +1,216 @@
+.bottomBox {
+    width: 100%;
+    direction: rtl;
+}
+
+.bottomBox img {
+    width: 100%;
+}
+
+.bottomBox div {
+    padding: 25px;
+    float: right;
+}
+
+.bottomBox .sectionName {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 1vw;
+}
+
+.bottomCell {
+    float: right;
+}
+
+.bottomImg {
+    width: 70%;
+    margin: 0 15%;
+    display: block;
+    background: white;
+}
+
+#copyRight {
+    display: none;
+    height: 80px;
+    direction: rtl;
+    text-align: center;
+    border-top: 1px solid;
+    padding: 10px;
+}
+
+.icons {
+    margin: 0 7.3vw;
+}
+
+.icons p {
+    margin-bottom: 0;
+    text-align: center;
+    font-size: 1.2vw;
+    color: black;
+}
+
+.icons a {
+    text-decoration: none;
+}
+
+.icons a:hover p {
+    color: #ccc;
+}
+
+.subIconsCon {
+    width: 50%;
+}
+
+.subIconsConRight {
+    float: right;
+}
+
+.subIconsConRight .subIcons {
+    margin-right: 3.66vw;
+    margin-left: 1.46vw;
+}
+
+.subIconsConCenter {
+    margin: auto;
+}
+
+.subIconsConCenter .subIcons {
+    margin-right: 2.56vw;
+    margin-left: 2.56vw;
+}
+
+.subIconsConLeft {
+    float: left;
+}
+
+.subIconsConLeft .subIcons {
+    margin-right: 1.46vw;
+    margin-left: 3.66vw;
+}
+
+.subIcons {
+}
+
+.subIcons p {
+    text-align: center;
+    font-size: 0.8vw;
+    margin-bottom: 0 !important;
+    color: black;
+}
+
+.subIcons a {
+    text-decoration: none;
+}
+
+.subIcons a:hover p {
+    color: #ccc;
+}
+
+.bottomRow {
+    width: 100%;
+    float: right;
+}
+
+.sepratorRow {
+    width: 80%;
+    display: block;
+    margin: auto;
+    margin-bottom: 5px;
+}
+
+.sliderContainer {
+    margin: 10px 5%;
+    direction: rtl;
+    height: 100px;
+    border-radius: 25px;
+    border: 1px solid #41709c;
+    display: table;
+    width: 90%;
+}
+
+.slideBtnCon {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+
+.slideBtn {
+    vertical-align: middle;
+    display: table-cell;
+    padding: 20px;
+}
+
+.optionsBtn {
+    right: 110px !important;
+}
+
+@media screen  and (min-width: 1400px) {
+    #siteContent {
+        padding: 20px 0;
+    }
+
+    #footer {
+        height: 5.8vw;
+        padding: 0.4vw 0.8vw;
+    }
+
+    .bottomBox div {
+        height: 30vw;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .icons p {
+        font-size: 18px;
+    }
+
+    .subIcons p {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+
+    #copyRight {
+        display: inline-block !important;
+    }
+
+    #footer {
+        display: none;
+    }
+
+    #siteContent {
+        bottom: 0 !important;
+    }
+
+    .sliderContainer {
+        margin: 10px 0;
+        width: 100%;
+    }
+
+    .bottomBox p {
+        font-size: 5vw !important;
+    }
+
+    .bottomBox div {
+        height: 100vw;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .optionsBtn {
+        right: 80px !important;
+    }
+
+    #topLogo {
+        float: right;
+        height: 40px !important;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    .bottomBox div {
+        height: 85vw;
+    }
+}
