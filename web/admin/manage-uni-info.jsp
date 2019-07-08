@@ -102,6 +102,7 @@
                 university.setEcoCode(request.getParameter("uni-eco-code"));
                 UniversityDAO.save(university);
                 isEditMainInfo = true;
+                message="ثبت تغییرات با موفقیت انجام شد";
             }
              if(editType.equals("management-info")) {
                 university.setTopManagerName(request.getParameter("uni-top-manager-name"));
@@ -111,20 +112,49 @@
                 university.setSignatoryNationalId(request.getParameter("uni-signatory-national-id"));
                 UniversityDAO.save(university);
                 isEditManagementInfo = true;
+                 message="ثبت تغییرات با موفقیت انجام شد";
              } else if(editType.equals("address-info")) {
-                university.setAddress(request.getParameter("uni-address"));
-                university.setPostalCode(request.getParameter("uni-postal-code"));
-                university.setTeleNo(request.getParameter("uni-tele-no"));
-                university.setFaxNo(request.getParameter("uni-fax-no"));
-                university.setSiteAddress(request.getParameter("uni-site-address"));
-                university.setUniPublicEmail(request.getParameter("uni-public-email"));
-                UniversityDAO.save(university);
-                isEditAddressInfo = true;
+                 boolean isCityCorrect = false;
+                 Long newCityID;
+
+                 try {
+                     if (!CityDAO.isCityNameNew(request.getParameter("uni-city-name"))) {
+                         isCityCorrect= true;
+                     } else {
+                         message = "نام شهر نادرست می باشد.";
+                     }
+                 } catch (Exception e) {
+                     e.printStackTrace();
+                 }
+
+
+                 if (isCityCorrect) {
+                     try {
+                         newCityID = CityDAO.findIdByCityName(request.getParameter("uni-city-name"));
+                         assert university != null;
+                         university.setCityId(newCityID);
+                         university.setAddress(request.getParameter("uni-address"));
+                         university.setPostalCode(request.getParameter("uni-postal-code"));
+                         university.setTeleNo(request.getParameter("uni-tele-no"));
+                         university.setFaxNo(request.getParameter("uni-fax-no"));
+                         university.setSiteAddress(request.getParameter("uni-site-address"));
+                         university.setUniPublicEmail(request.getParameter("uni-public-email"));
+                         UniversityDAO.save(university);
+                         message="ثبت تغییرات با موفقیت انجام شد";
+                     } catch (Exception e) {
+                         message = "ثبت تغییرات ناموفق بود. لطفا دوباره تلاش کنید و در صورت تکرار مشکل با ادمین سایت تماس برقرار کنید.";
+                     }
+                 }
+
+
+                 isEditAddressInfo = true;
             } else if(editType.equals("agent-info")) {
 
                  Long agentNationalIdNew = Long.valueOf(request.getParameter("agent-national-id"));
-                 Long agentNationalIdOld = Long.valueOf(uniAgent.getNationalId());
+                 assert uniAgent != null;
+                 Long agentNationalIdOld = uniAgent.getNationalId();
 
+                 assert uniAgentPersonalInfo != null;
                  uniAgentPersonalInfo.setFname(request.getParameter("agent-fname"));
                  uniAgentPersonalInfo.setLname(request.getParameter("agent-lname"));
                  uniAgentPersonalInfo.setNationalId(agentNationalIdNew);
@@ -144,10 +174,11 @@
 
                  PersonalInfoDAO.update(agentNationalIdOld,uniAgentPersonalInfo);
 
+                 message="ثبت تغییرات با موفقیت انجام شد";
                  isEditAgentInfo = true;
             }
 
-             message="ثبت تغییرات با موفقیت انجام شد";
+
              isEdit=true;
         }
 
@@ -208,6 +239,13 @@
             <%assert university !=null;%>
             <%=university.getUniName()%>
         </h3>
+        <% if (message != null) {
+            if (message.equals("ثبت تغییرات با موفقیت انجام شد")) {%>
+                    <h3 style="color: #4cae4c">
+                        <%=message%>
+                        <%message=null;%>
+                    </h3>
+         <%} }%>
     </div>
 
     <% if (isEdit && isEditMainInfo) { %>
@@ -343,7 +381,7 @@
 
             <div class="formItem" style="margin-right: 10px">
                 <label> استان:</label>
-                <input class="formInput <%=isEdit?" formInputDeactive":" persianInput"%>" name="state-name" maxlength="30"
+                <input class="formInput <%=isEdit?" formInputDeactive":" persianInput"%>" name="uni-state-name" maxlength="30"
                        style="width:150px;margin-left: 20px;"
                        value="<%=isEdit?StateDAO.findStateNameById(university.getStateId()):""%>"
                        <%=isEdit?" disabled":""%>>
@@ -351,10 +389,9 @@
 
             <div class="formItem" style="margin-right: 10px">
                 <label> شهر:</label>
-                <input class="formInput <%=isEdit?" formInputDeactive":" persianInput"%>" name="city-name" maxlength="30"
+                <input class="formInput persianInput" name="uni-city-name" maxlength="30"
                        style="width:150px;margin-left: 20px;"
-                       value="<%=isEdit?CityDAO.findCityNameById(university.getCityId()):""%>"
-                       <%=isEdit?" disabled":""%>>
+                       value="<%=isEdit?CityDAO.findCityNameById(university.getCityId()):""%>">
             </div>
             <div class="formItem" style="margin-right: 10px">
                 <label>آدرس کامل:</label>
