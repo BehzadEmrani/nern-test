@@ -39,7 +39,7 @@ public class CityDAO {
         query.setParameter("name", name);
         Long cityID = (Long) query.uniqueResult();
         if (cityID==null) {
-            throw new NullPointerException("No City Found.");
+            throw new NullPointerException("No such Name Exists.");
         }
         return cityID ;
     }
