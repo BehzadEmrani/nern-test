@@ -37,7 +37,11 @@ public class CityDAO {
         Session session = SessionUtil.getSession();
         Query query = session.createQuery("select c.id from City c where c.name=:name");
         query.setParameter("name", name);
-        return (Long) query.uniqueResult();
+        Long cityID = (Long) query.uniqueResult();
+        if (cityID==null) {
+            throw new NullPointerException("No City Found.");
+        }
+        return cityID ;
     }
 
     public static String findCityNameById(long id) throws Exception {
