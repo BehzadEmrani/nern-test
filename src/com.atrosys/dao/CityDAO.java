@@ -33,11 +33,11 @@ public class CityDAO {
         return (City) query.uniqueResult();
     }
 
-    public static Long findIdByCityName(String name) throws Exception {
+    public static Integer findIdByCityName(String name) throws Exception {
         Session session = SessionUtil.getSession();
         Query query = session.createQuery("select c.id from City c where c.name=:name");
         query.setParameter("name", name);
-        return (Long) query.uniqueResult();
+        return (Integer) query.uniqueResult();
     }
 
     public static String findCityNameById(long id) throws Exception {
