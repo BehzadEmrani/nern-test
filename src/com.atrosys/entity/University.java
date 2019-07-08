@@ -11,9 +11,9 @@ import java.sql.Date;
 public class University {
     private Long uniNationalId;
     private Long uniStatusLog;
+    private Long cityId;
     private Integer countryId;
     private Integer stateId;
-    private Integer cityId;
     private Integer uniStatus;
     private Integer uniSubStatus;
     private Integer uniSubSystemCode;
@@ -138,11 +138,11 @@ public class University {
 
 
     @Column(name = "city_id")
-    public Integer getCityId() {
+    public Long getCityId() {
         return cityId;
     }
 
-    public void setCityId(Integer cityId) {
+    public void setCityId(Long cityId) {
         this.cityId = cityId;
     }
 
