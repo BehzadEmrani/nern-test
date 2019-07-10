@@ -74,8 +74,8 @@
     }
 
     University university = null;
-    Agent uniAgent = null;
-    PersonalInfo uniAgentPersonalInfo = null;
+    Agent uniPrimaryAgent = null;
+    PersonalInfo uniPrimaryAgentPersonalInfo = null;
 
     if (isSendEdit || isEdit) {
 
@@ -83,8 +83,8 @@
             university = UniversityDAO.findUniByUniNationalId(
                     Long.valueOf(request.getParameter("uni-national-id")));
 
-            uniAgent = AgentDAO.findUniPrimaryAgentByUniId(university.getUniNationalId());
-            uniAgentPersonalInfo = PersonalInfoDAO.findPersonalInfoByNationalId(uniAgent.getNationalId());
+            uniPrimaryAgent = AgentDAO.findUniPrimaryAgentByUniId(university.getUniNationalId());
+            uniPrimaryAgentPersonalInfo = PersonalInfoDAO.findPersonalInfoByNationalId(uniPrimaryAgent.getNationalId());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -98,13 +98,24 @@
             isEditManagementInfo=false;
 
             if (editType.equals("main-info" )) {
+                assert university != null;
+                Long uniNationalIdNew = Long.valueOf(request.getParameter("uni-national-id-new"));
+                Long uniNationalIdOld = university.getUniNationalId();
+
+                university.setUniNationalId(uniNationalIdNew);
                 university.setUniName(request.getParameter("uni-name"));
                 university.setEcoCode(request.getParameter("uni-eco-code"));
-                UniversityDAO.save(university);
+                try {
+                    UniversityDAO.update(uniNationalIdOld, university);
+                    UniStatusLogDAO.updateUniNationalId(uniNationalIdOld, uniNationalIdNew);
+                    AgentDAO.updateUniNationalId(uniNationalIdOld,uniNationalIdNew);
+                    message="ثبت تغییرات با موفقیت انجام شد";
+                }
+                catch (Exception e) {
+                    message = "خطایی در ثبت تغییرات ایجاد شد.";
+                }
                 isEditMainInfo = true;
-                message="ثبت تغییرات با موفقیت انجام شد";
-            }
-             if(editType.equals("management-info")) {
+            } else if(editType.equals("management-info")) {
                 university.setTopManagerName(request.getParameter("uni-top-manager-name"));
                 university.setTopManagerPos(request.getParameter("uni-top-manager-pos"));
                 university.setSignatoryName(request.getParameter("uni-signatory-name"));
@@ -112,87 +123,87 @@
                 university.setSignatoryNationalId(request.getParameter("uni-signatory-national-id"));
                 UniversityDAO.save(university);
                 isEditManagementInfo = true;
-                 message="ثبت تغییرات با موفقیت انجام شد";
-             } else if(editType.equals("address-info")) {
-                 boolean isCityCorrect = false;
-                 Long newCityID;
+                message="ثبت تغییرات با موفقیت انجام شد";
+            } else if(editType.equals("address-info")) {
+                boolean isCityCorrect = false;
+                Long newCityID;
 
-                 try {
-                     if (!CityDAO.isCityNameNew(request.getParameter("uni-city-name"))) {
-                         isCityCorrect= true;
-                     } else {
-                         message = "نام شهر نادرست می باشد.";
-                     }
-                 } catch (Exception e) {
-                     e.printStackTrace();
-                 }
-
-
-                 if (isCityCorrect) {
-                     try {
-                         newCityID = CityDAO.findIdByCityName(request.getParameter("uni-city-name"));
-                         assert university != null;
-                         university.setCityId(newCityID);
-                         university.setAddress(request.getParameter("uni-address"));
-                         university.setPostalCode(request.getParameter("uni-postal-code"));
-                         university.setTeleNo(request.getParameter("uni-tele-no"));
-                         university.setFaxNo(request.getParameter("uni-fax-no"));
-                         university.setSiteAddress(request.getParameter("uni-site-address"));
-                         university.setUniPublicEmail(request.getParameter("uni-public-email"));
-                         UniversityDAO.save(university);
-                         message="ثبت تغییرات با موفقیت انجام شد";
-                     } catch (Exception e) {
-                         message = "ثبت تغییرات ناموفق بود. لطفا دوباره تلاش کنید و در صورت تکرار مشکل با ادمین سایت تماس برقرار کنید.";
-                     }
-                 }
+                try {
+                    if (!CityDAO.isCityNameNew(request.getParameter("uni-city-name"))) {
+                        isCityCorrect= true;
+                    } else {
+                        message = "نام شهر نادرست می باشد.";
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
 
-                 isEditAddressInfo = true;
+                if (isCityCorrect) {
+                    try {
+                        newCityID = CityDAO.findIdByCityName(request.getParameter("uni-city-name"));
+                        assert university != null;
+                        university.setCityId(newCityID);
+                        university.setAddress(request.getParameter("uni-address"));
+                        university.setPostalCode(request.getParameter("uni-postal-code"));
+                        university.setTeleNo(request.getParameter("uni-tele-no"));
+                        university.setFaxNo(request.getParameter("uni-fax-no"));
+                        university.setSiteAddress(request.getParameter("uni-site-address"));
+                        university.setUniPublicEmail(request.getParameter("uni-public-email"));
+                        UniversityDAO.save(university);
+                        message="ثبت تغییرات با موفقیت انجام شد";
+                    } catch (Exception e) {
+                        message = "ثبت تغییرات ناموفق بود. لطفا دوباره تلاش کنید و در صورت تکرار مشکل با ادمین سایت تماس برقرار کنید.";
+                    }
+                }
+
+
+                isEditAddressInfo = true;
             } else if(editType.equals("agent-info")) {
 
-                 Long agentNationalIdNew = Long.valueOf(request.getParameter("agent-national-id"));
-                 assert uniAgent != null;
-                 Long agentNationalIdOld = uniAgent.getNationalId();
+                Long agentNationalIdNew = Long.valueOf(request.getParameter("agent-national-id"));
+                assert uniPrimaryAgent != null;
+                Long agentNationalIdOld = uniPrimaryAgent.getNationalId();
 
-                 assert uniAgentPersonalInfo != null;
-                 uniAgentPersonalInfo.setFname(request.getParameter("agent-fname"));
-                 uniAgentPersonalInfo.setLname(request.getParameter("agent-lname"));
-                 uniAgentPersonalInfo.setNationalId(agentNationalIdNew);
-
-
-                 uniAgent.setNationalId(agentNationalIdNew);
-                 uniAgent.setAgentPos(request.getParameter("agent-pos"));
-                 uniAgent.setTelNo(request.getParameter("agent-tele-no"));
-                 uniAgent.setMobileNo(request.getParameter("agent-mobile-no"));
-                 uniAgent.setFaxNo(request.getParameter("agent-fax-no"));
-                 AgentDAO.save(uniAgent);
-
-                 UserRole userRole = UserRoleDAO.findUserRolesByNationalId(agentNationalIdOld).get(0);
-                 userRole.setNationalId(agentNationalIdNew);
-                 UserRoleDAO.save(userRole);
+                assert uniPrimaryAgentPersonalInfo != null;
+                uniPrimaryAgentPersonalInfo.setFname(request.getParameter("agent-fname"));
+                uniPrimaryAgentPersonalInfo.setLname(request.getParameter("agent-lname"));
+                uniPrimaryAgentPersonalInfo.setNationalId(agentNationalIdNew);
 
 
-                 PersonalInfoDAO.update(agentNationalIdOld,uniAgentPersonalInfo);
+                uniPrimaryAgent.setNationalId(agentNationalIdNew);
+                uniPrimaryAgent.setAgentPos(request.getParameter("agent-pos"));
+                uniPrimaryAgent.setTelNo(request.getParameter("agent-tele-no"));
+                uniPrimaryAgent.setMobileNo(request.getParameter("agent-mobile-no"));
+                uniPrimaryAgent.setFaxNo(request.getParameter("agent-fax-no"));
+                AgentDAO.save(uniPrimaryAgent);
 
-                 message="ثبت تغییرات با موفقیت انجام شد";
-                 isEditAgentInfo = true;
+                UserRole userRole = UserRoleDAO.findUserRolesByNationalId(agentNationalIdOld).get(0);
+                userRole.setNationalId(agentNationalIdNew);
+                UserRoleDAO.save(userRole);
+
+
+                PersonalInfoDAO.update(agentNationalIdOld, uniPrimaryAgentPersonalInfo);
+
+                message="ثبت تغییرات با موفقیت انجام شد";
+                isEditAgentInfo = true;
             }
 
 
-             isEdit=true;
+            isEdit=true;
         }
 
     }
 
     if (isEditMainInfo) {
-            editType = "main-info";
-        } else if (isEditManagementInfo) {
-            editType = "management-info";
-        } else if  (isEditAddressInfo) {
-            editType = "address-info";
-        } else if (isEditAgentInfo) {
-            editType = "agent-info";
-        }
+        editType = "main-info";
+    } else if (isEditManagementInfo) {
+        editType = "management-info";
+    } else if  (isEditAddressInfo) {
+        editType = "address-info";
+    } else if (isEditAgentInfo) {
+        editType = "agent-info";
+    }
 
 
 
@@ -241,125 +252,124 @@
         </h3>
         <% if (message != null) {
             if (message.equals("ثبت تغییرات با موفقیت انجام شد")) {%>
-                    <h3 style="color: #4cae4c">
-                        <%=message%>
-                        <%message=null;%>
-                    </h3>
-         <%} }%>
+        <h3 style="color: #4cae4c">
+            <%=message%>
+            <%message=null;%>
+        </h3>
+        <%} }%>
     </div>
 
     <% if (isEdit && isEditMainInfo) { %>
-        <div class="formBox">
-            <%if (isEdit) {
-                assert uniAgent !=null;
-                assert uniAgentPersonalInfo != null;
-            %>
+    <div class="formBox">
+        <%if (isEdit) {
+            assert uniPrimaryAgent !=null;
+            assert uniPrimaryAgentPersonalInfo != null;
+        %>
 
-            <h3>ویرایش مشخصات کلی</h3>
-            <%} else {%>
-            <h3>افزودن دانشگاه</h3>
-            <%}%>
-            <%if (message != null) {%>
-            <h3 style="color: #c00">
-                <%=message%>
-            </h3>
-            <%}%>
-            <div class="formRow">
-                <div class="formItem" style="margin-right: 10px">
-                    <label>شناسه ملی :</label>
-                    <input class="formInput<%=isEdit?" formInputDeactive":" numberInput"%>" name="uni-national-id"
-                           value="<%=isEdit?university.getUniNationalId():""%>"
-                           maxlength="15"
-                           style="width: 150px;margin-left: 20px;"
-                        <%=isEdit?" disabled":""%>>
-                </div>
-                <div class="formItem" style="margin-right: 10px">
-                    <label>نام اصلی:</label>
-                    <input class="formInput persianInput" name="uni-name" minlength="1"
-                           style="width:400px;margin-left: 20px;"
-                           value="<%=isEdit?university.getUniName():""%>">
-                </div>
-                <div class="formItem" style="margin-right: 10px">
-                    <label> کد اقتصادی :</label>
-                    <input class="formInput numberInput" name="uni-eco-code" maxlength="30"
-                           style="width:150px;margin-left: 20px;"
-                           value="<%=isEdit?university.getEcoCode():""%>">
-                </div>
+        <h3>ویرایش مشخصات کلی</h3>
+        <%} else {%>
+        <h3>افزودن دانشگاه</h3>
+        <%}%>
+        <%if (message != null) {%>
+        <h3 style="color: #c00">
+            <%=message%>
+        </h3>
+        <%}%>
+        <div class="formRow">
+            <div class="formItem" style="margin-right: 10px">
+                <label>شناسه ملی :</label>
+                <input class="formInput numberInput" name="uni-national-id-new"
+                       value="<%=isEdit?university.getUniNationalId():""%>"
+                       maxlength="15"
+                       style="width: 150px;margin-left: 20px;">
             </div>
-
-            <div class="formRow" style="display: inline-block;width: 100%">
-                <input type="submit" value="تایید" class="btn btn-primary formBtn" style="float: left;">
-                <%if (isEdit) {%>
-                <a href="manage-uni.jsp?sub-code=0" class="btn btn-primary formBtn"
-                   style="float: left;margin-left: 10px">لغو</a>
-                <%} %>
+            <div class="formItem" style="margin-right: 10px">
+                <label>نام اصلی:</label>
+                <input class="formInput persianInput" name="uni-name" minlength="1"
+                       style="width:400px;margin-left: 20px;"
+                       value="<%=isEdit?university.getUniName():""%>">
+            </div>
+            <div class="formItem" style="margin-right: 10px">
+                <label> کد اقتصادی :</label>
+                <input class="formInput numberInput" name="uni-eco-code" maxlength="30"
+                       style="width:150px;margin-left: 20px;"
+                       value="<%=isEdit?university.getEcoCode():""%>">
             </div>
         </div>
+
+        <div class="formRow" style="display: inline-block;width: 100%">
+            <input type="submit" value="تایید" class="btn btn-primary formBtn" style="float: left;">
+            <%if (isEdit) {%>
+            <a href="manage-uni.jsp?sub-code=0" class="btn btn-primary formBtn"
+               style="float: left;margin-left: 10px">لغو</a>
+            <%} %>
+        </div>
+    </div>
     <%}%>
 
     <% if(isEdit && isEditManagementInfo) {%>
-        <div class="formBox">
+    <div class="formBox">
 
-            <%if (isEdit) {
-                assert university != null;
-            %>
-            <h3>ویرایش مشخصات مدیران</h3>
-            <%} else {%>
-            <h3>افزودن مدیر</h3>
-            <%}%>
-            <%if (message != null) {%>
-            <h3 style="color: #c00">
-                <%=message%>
-            </h3>
-            <%}%>
+        <%if (isEdit) {
+            assert university != null;
+        %>
+        <h3>ویرایش مشخصات مدیران</h3>
+        <%} else {%>
+        <h3>افزودن مدیر</h3>
+        <%}%>
+        <%if (message != null) {%>
+        <h3 style="color: #c00">
+            <%=message%>
+        </h3>
+        <%}%>
 
-            <div class="formRow">
+        <div class="formRow">
 
-                <div class="formItem" style="margin-right: 10px">
-                    <label> بالاترین مقام :</label>
-                    <input class="formInput persianInput" name="uni-top-manager-name" maxlength="30"
-                           style="width:150px;margin-left: 20px;"
-                           value="<%=isEdit?university.getTopManagerName():""%>">
-                </div>
-                <div class="formItem" style="margin-right: 10px">
-                    <label> سمت:</label>
-                    <input class="formInput persianInput" name="uni-top-manager-pos" maxlength="30"
-                           style="width:150px;margin-left: 20px;"
-                           value="<%=isEdit?university.getTopManagerPos():""%>">
-                </div>
-
-                <div class="formItem" style="margin-right: 10px">
-                    <label> مقام مجاز امضا:</label>
-                    <input class="formInput persianInput" name="uni-signatory-name" maxlength="30"
-                           style="width:150px;margin-left: 20px;"
-                           value="<%=isEdit?university.getSignatoryName():""%>">
-                </div>
-
-                <div class="formItem" style="margin-right: 10px">
-                    <label> سمت:</label>
-                    <input class="formInput persianInput" name="uni-signatory-pos" maxlength="30"
-                           style="width:150px;margin-left: 20px;"
-                           value="<%=isEdit?university.getSignatoryPos():""%>">
-                </div>
-
-                <div class="formItem" style="margin-right: 10px">
-                    <label> کد ملی:</label>
-                    <input class="formInput numberInput" name="uni-signatory-national-id"
-                           style="width:150px;margin-left: 20px;"
-                           maxlength="12"
-                           minlength="8"
-                           value="<%=isEdit?university.getSignatoryNationalId():""%>">
-                </div>
+            <div class="formItem" style="margin-right: 10px">
+                <label> بالاترین مقام :</label>
+                <input class="formInput persianInput" name="uni-top-manager-name" maxlength="30"
+                       style="width:150px;margin-left: 20px;"
+                       value="<%=isEdit?university.getTopManagerName():""%>">
+            </div>
+            <div class="formItem" style="margin-right: 10px">
+                <label> سمت:</label>
+                <input class="formInput persianInput" name="uni-top-manager-pos" maxlength="30"
+                       style="width:150px;margin-left: 20px;"
+                       value="<%=isEdit?university.getTopManagerPos():""%>">
             </div>
 
-            <div class="formRow" style="display: inline-block;width: 100%">
-                <input type="submit" value="تایید" class="btn btn-primary formBtn" style="float: left;">
-                <%if (isEdit) {%>
-                <a href="manage-uni.jsp?sub-code=0" class="btn btn-primary formBtn"
-                   style="float: left;margin-left: 10px">لغو</a>
-                <%} %>
+            <div class="formItem" style="margin-right: 10px">
+                <label> مقام مجاز امضا:</label>
+                <input class="formInput persianInput" name="uni-signatory-name" maxlength="30"
+                       style="width:150px;margin-left: 20px;"
+                       value="<%=isEdit?university.getSignatoryName():""%>">
+            </div>
+
+            <div class="formItem" style="margin-right: 10px">
+                <label> سمت:</label>
+                <input class="formInput persianInput" name="uni-signatory-pos" maxlength="30"
+                       style="width:150px;margin-left: 20px;"
+                       value="<%=isEdit?university.getSignatoryPos():""%>">
+            </div>
+
+            <div class="formItem" style="margin-right: 10px">
+                <label> کد ملی:</label>
+                <input class="formInput numberInput" name="uni-signatory-national-id"
+                       style="width:150px;margin-left: 20px;"
+                       maxlength="12"
+                       minlength="8"
+                       value="<%=isEdit?university.getSignatoryNationalId():""%>">
             </div>
         </div>
+
+        <div class="formRow" style="display: inline-block;width: 100%">
+            <input type="submit" value="تایید" class="btn btn-primary formBtn" style="float: left;">
+            <%if (isEdit) {%>
+            <a href="manage-uni.jsp?sub-code=0" class="btn btn-primary formBtn"
+               style="float: left;margin-left: 10px">لغو</a>
+            <%} %>
+        </div>
+    </div>
     <%}%>
 
     <% if(isEdit && isEditAddressInfo) {%>
@@ -384,7 +394,7 @@
                 <input class="formInput <%=isEdit?" formInputDeactive":" persianInput"%>" name="uni-state-name" maxlength="30"
                        style="width:150px;margin-left: 20px;"
                        value="<%=isEdit?StateDAO.findStateNameById(university.getStateId()):""%>"
-                       <%=isEdit?" disabled":""%>>
+                    <%=isEdit?" disabled":""%>>
             </div>
 
             <div class="formItem" style="margin-right: 10px">
@@ -450,83 +460,83 @@
 
 
     <% if(isEdit && isEditAgentInfo) {%>
-        <div class="formBox">
-            <%if (isEdit) {
-                assert university != null;
-                %>
-            <h3>ویرایش مشخصات نماینده تام الختیار:</h3>
-            <%} else {%>
-            <h3>افزودن نماینده:</h3>
-            <%}%>
-            <%if (message != null) {%>
-            <h3 style="color: #c00">
-                <%=message%>
-            </h3>
-            <%}%>
+    <div class="formBox">
+        <%if (isEdit) {
+            assert university != null;
+        %>
+        <h3>ویرایش مشخصات نماینده تام الختیار:</h3>
+        <%} else {%>
+        <h3>افزودن نماینده:</h3>
+        <%}%>
+        <%if (message != null) {%>
+        <h3 style="color: #c00">
+            <%=message%>
+        </h3>
+        <%}%>
 
-            <div class="formRow">
+        <div class="formRow">
 
-                <div class="formItem" style="margin-right: 10px">
-                    <label> نام:</label>
-                    <input class="formInput persianInput" name="agent-fname" maxlength="30"
-                           style="width:150px;margin-left: 20px;"
-                           value="<%=isEdit?uniAgentPersonalInfo.getFname():""%>">
-                </div>
-
-                <div class="formItem" style="margin-right: 10px">
-                    <label> نام خانوادگی:</label>
-                    <input class="formInput persianInput" name="agent-lname" maxlength="30"
-                           style="width:150px;margin-left: 20px;"
-                           value="<%=isEdit?uniAgentPersonalInfo.getLname():""%>">
-                </div>
-                <div class="formItem" style="margin-right: 10px">
-                    <label>کد ملی:</label>
-                    <input class="formInput numberInput" name="agent-national-id" maxlength="16"
-                           style="width:150px;margin-left: 20px;"
-                           minlength="8"
-                           value="<%=isEdit?uniAgent.getNationalId():""%>">
-                </div>
-
-                <div class="formItem" style="margin-right: 10px">
-                    <label> سمت:</label>
-                    <input class="formInput persianInput" name="agent-pos" maxlength="30"
-                           style="width:200px;margin-left: 20px;"
-                           value="<%=isEdit?uniAgent.getAgentPos():""%>">
-                </div>
-
-                <div class="formItem" style="margin-right: 10px">
-                    <label>شماره ثابت:</label>
-                    <input class="formInput numberInput" name="agent-tele-no" maxlength="12"
-                           style="width:150px;margin-left: 20px;"
-                           minlength="8"
-                           value="<%=isEdit?uniAgent.getTelNo():""%>">
-                </div>
-
-                <div class="formItem" style="margin-right: 10px">
-                    <label>موبایل:</label>
-                    <input class="formInput numberInput" name="agent-mobile-no" maxlength="12"
-                           style="width:150px;margin-left: 20px;"
-                           minlength="8"
-                           value="<%=isEdit?uniAgent.getMobileNo():""%>">
-                </div>
-
-                <div class="formItem" style="margin-right: 10px">
-                    <label>دورنگار:</label>
-                    <input class="formInput numberInput" name="agent-fax-no" maxlength="12"
-                           style="width:150px;margin-left: 20px;"
-                           minlength="8"
-                           value="<%=isEdit?uniAgent.getFaxNo():""%>">
-                </div>
-
+            <div class="formItem" style="margin-right: 10px">
+                <label> نام:</label>
+                <input class="formInput persianInput" name="agent-fname" maxlength="30"
+                       style="width:150px;margin-left: 20px;"
+                       value="<%=isEdit?uniPrimaryAgentPersonalInfo.getFname():""%>">
             </div>
-            <div class="formRow" style="display: inline-block;width: 100%">
-                <input type="submit" value="تایید" class="btn btn-primary formBtn" style="float: left;">
-                <%if (isEdit) {%>
-                <a href="manage-uni.jsp?sub-code=0" class="btn btn-primary formBtn"
-                   style="float: left;margin-left: 10px">لغو</a>
-                <%} %>
+
+            <div class="formItem" style="margin-right: 10px">
+                <label> نام خانوادگی:</label>
+                <input class="formInput persianInput" name="agent-lname" maxlength="30"
+                       style="width:150px;margin-left: 20px;"
+                       value="<%=isEdit?uniPrimaryAgentPersonalInfo.getLname():""%>">
             </div>
+            <div class="formItem" style="margin-right: 10px">
+                <label>کد ملی:</label>
+                <input class="formInput numberInput" name="agent-national-id" maxlength="16"
+                       style="width:150px;margin-left: 20px;"
+                       minlength="8"
+                       value="<%=isEdit?uniPrimaryAgent.getNationalId():""%>">
+            </div>
+
+            <div class="formItem" style="margin-right: 10px">
+                <label> سمت:</label>
+                <input class="formInput persianInput" name="agent-pos" maxlength="30"
+                       style="width:200px;margin-left: 20px;"
+                       value="<%=isEdit?uniPrimaryAgent.getAgentPos():""%>">
+            </div>
+
+            <div class="formItem" style="margin-right: 10px">
+                <label>شماره ثابت:</label>
+                <input class="formInput numberInput" name="agent-tele-no" maxlength="12"
+                       style="width:150px;margin-left: 20px;"
+                       minlength="8"
+                       value="<%=isEdit?uniPrimaryAgent.getTelNo():""%>">
+            </div>
+
+            <div class="formItem" style="margin-right: 10px">
+                <label>موبایل:</label>
+                <input class="formInput numberInput" name="agent-mobile-no" maxlength="12"
+                       style="width:150px;margin-left: 20px;"
+                       minlength="8"
+                       value="<%=isEdit?uniPrimaryAgent.getMobileNo():""%>">
+            </div>
+
+            <div class="formItem" style="margin-right: 10px">
+                <label>دورنگار:</label>
+                <input class="formInput numberInput" name="agent-fax-no" maxlength="12"
+                       style="width:150px;margin-left: 20px;"
+                       minlength="8"
+                       value="<%=isEdit?uniPrimaryAgent.getFaxNo():""%>">
+            </div>
+
         </div>
+        <div class="formRow" style="display: inline-block;width: 100%">
+            <input type="submit" value="تایید" class="btn btn-primary formBtn" style="float: left;">
+            <%if (isEdit) {%>
+            <a href="manage-uni.jsp?sub-code=0" class="btn btn-primary formBtn"
+               style="float: left;margin-left: 10px">لغو</a>
+            <%} %>
+        </div>
+    </div>
     <%}%>
 </form>
 <%}%>
