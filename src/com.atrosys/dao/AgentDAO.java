@@ -18,6 +18,21 @@ public class AgentDAO {
         return (Agent) new HibernateUtil().save(agent);
     }
 
+    public static String updateUniNationalId(Long uniNationalIdOld, Long uniNationalIdNew) throws Exception {
+        List<Agent> agentList = findAgentByUniId(uniNationalIdOld);
+        if (agentList.size()<1) {
+            throw new Exception("No Records Found");
+        }
+        if (uniNationalIdNew==null || uniNationalIdNew==0){
+            throw new Exception("UniNationallId Can't be empty");
+        }
+        for (Agent agent: agentList) {
+            agent.setUniNationalId(uniNationalIdNew);
+            new HibernateUtil().save(agent);
+        }
+        return "OK";
+    }
+
     public static long findAgentIdByNationalId(long nationalId) throws Exception {
         Session session = SessionUtil.getSession();
         Query query = session.createQuery("select u.id from Agent u where u.nationalId= :nationalId");
