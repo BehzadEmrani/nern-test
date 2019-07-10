@@ -29,6 +29,12 @@ public class UniversityDAO {
         return (University) new HibernateUtil().save(university);
     }
 
+    public static University update(Long uniNationalIdOld ,University university) throws Exception {
+        University exUni = new University();
+        exUni.setUniNationalId(uniNationalIdOld);
+        new HibernateUtil().delete(exUni);
+        return (University) new HibernateUtil().save(university);
+    }
     public static UniStatus findUniStatusByUniNationalId(long uniId) throws Exception {
         try {
             Session session = SessionUtil.getSession();

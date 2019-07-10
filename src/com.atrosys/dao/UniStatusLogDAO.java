@@ -57,4 +57,13 @@ public class UniStatusLogDAO {
         return (UniStatusLog) new HibernateUtil().save(uniStatusLog);
     }
 
+    public static String updateUniNationalId(Long uniNationalIdOld, Long uniNationalIdNew) throws Exception {
+        List<UniStatusLog> uniStatusLogList = findUniStatusLogByUniNationalId(uniNationalIdOld);
+
+        for (UniStatusLog Log: uniStatusLogList) {
+           Log.setUniNationalId(uniNationalIdNew);
+           new HibernateUtil().save(Log);
+        }
+    return "OK";}
+
 }
