@@ -198,7 +198,7 @@
                 university.setMapLocLng(Double.valueOf(request.getParameter("lng")));
                 university.setPostalCode(request.getParameter("postal-code"));
                 university.setStateId(Integer.valueOf(request.getParameter("state")));
-                university.setCityId(Integer.valueOf(request.getParameter("city")));
+                university.setCityId(Long.valueOf(request.getParameter("city")));
                 university.setAddress(request.getParameter("address"));
                 university.setEcoCode(request.getParameter("eco-code"));
                 university.setUniSubSystemCode(subSystemCode.getValue());
@@ -268,7 +268,7 @@
                 university.setMapLocLng(Double.valueOf(request.getParameter("lng")));
                 university.setPostalCode(request.getParameter("postal-code"));
                 university.setStateId(Integer.valueOf(request.getParameter("state")));
-                university.setCityId(Integer.valueOf(request.getParameter("city")));
+                university.setCityId(Long.valueOf(request.getParameter("city")));
                 university.setAddress(request.getParameter("address"));
                 university.setEcoCode(request.getParameter("eco-code"));
                 university = UniversityDAO.save(university);
