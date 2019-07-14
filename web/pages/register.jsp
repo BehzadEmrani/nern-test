@@ -197,7 +197,7 @@
                 university.setMapLocLat(Double.valueOf(request.getParameter("lat")));
                 university.setMapLocLng(Double.valueOf(request.getParameter("lng")));
                 university.setPostalCode(request.getParameter("postal-code"));
-                university.setStateId(Integer.valueOf(request.getParameter("state")));
+                university.setStateId(Long.valueOf(request.getParameter("state")));
                 university.setCityId(Long.valueOf(request.getParameter("city")));
                 university.setAddress(request.getParameter("address"));
                 university.setEcoCode(request.getParameter("eco-code"));
@@ -267,7 +267,7 @@
                 university.setMapLocLat(Double.valueOf(request.getParameter("lat")));
                 university.setMapLocLng(Double.valueOf(request.getParameter("lng")));
                 university.setPostalCode(request.getParameter("postal-code"));
-                university.setStateId(Integer.valueOf(request.getParameter("state")));
+                university.setStateId(Long.valueOf(request.getParameter("state")));
                 university.setCityId(Long.valueOf(request.getParameter("city")));
                 university.setAddress(request.getParameter("address"));
                 university.setEcoCode(request.getParameter("eco-code"));

@@ -12,8 +12,8 @@ public class University {
     private Long uniNationalId;
     private Long uniStatusLog;
     private Long cityId;
-    private Integer countryId;
-    private Integer stateId;
+    private Long countryId;
+    private Long stateId;
     private Integer uniStatus;
     private Integer uniSubStatus;
     private Integer uniSubSystemCode;
@@ -118,21 +118,21 @@ public class University {
     }
 
     @Column(name = "country_id")
-    public Integer getCountryId() {
+    public Long getCountryId() {
         return countryId;
     }
 
-    public void setCountryId(Integer countryId) {
+    public void setCountryId(Long countryId) {
         this.countryId = countryId;
     }
 
 
     @Column(name = "state_id")
-    public Integer getStateId() {
+    public Long getStateId() {
         return stateId;
     }
 
-    public void setStateId(Integer stateId) {
+    public void setStateId(Long stateId) {
         this.stateId = stateId;
     }
 
