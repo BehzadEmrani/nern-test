@@ -9,11 +9,6 @@
     </properties>
     <root id="archive" name="nern.ir-1.war">
       <element id="artifact" artifact-name="nern-test:war exploded" />
-      <element id="directory" name="WEB-INF">
-        <element id="directory" name="lib">
-          <element id="library" level="application" name="Hibernate 5.4.2-5.4.2" />
-        </element>
-      </element>
     </root>
   </artifact>
 </component>

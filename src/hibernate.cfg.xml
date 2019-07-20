@@ -5,11 +5,11 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/nern</property>
-        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
         
         <property name="hibernate.connection.username">atro</property>
-        <property name="hibernate.connection.password">atrosys</property>
+        <property name="hibernate.connection.password">Atr0$ys%nReN</property>
         <!-- <property name="connection.username"/> -->
         <!-- <property name="connection.password"/> -->
 
