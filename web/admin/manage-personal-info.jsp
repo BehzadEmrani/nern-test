@@ -69,13 +69,14 @@
                 Long.valueOf(request.getParameter("national-id")));
     }
     try {
-        if (isSendNewPerson || editSubAccess) {
+        if (isSendNewPerson || isSendEdit) {
             if (isSendNewPerson) {
                 personalInfo = new PersonalInfo();
                 personalInfo.setNeedChangePass(true);
                 personalInfo.setNationalId(Long.valueOf(request.getParameter("national-id")));
             }
-        personalInfo.setShenasNo(request.getParameter("shenas-no"));
+
+            personalInfo.setShenasNo(request.getParameter("shenas-no"));
             personalInfo.setFname(request.getParameter("fname"));
             personalInfo.setLname(request.getParameter("lname"));
             personalInfo.setUsername(request.getParameter("username"));
@@ -246,9 +247,15 @@
 <%}%>
 <%if (readSubAccess) {%>
 <div class="formBox" style="text-align: center;margin-bottom:10px ">
-    <h4 style="text-align: center">
-        فهرست اشخاص حقیقی
-    </h4>
+    <%if (isLegals)  {%>
+        <h4 style="text-align: center">
+            فهرست اشخاص حقوقی
+        </h4>
+    <%} else {%>
+        <h4 style="text-align: center">
+            فهرست اشخاص حقیقی
+        </h4>
+    <%}%>
     <table class="fixed-table table table-striped personListTable" style="display: inline-block;;">
         <thead>
         <tr style="background: #337ab7;color: white;">
