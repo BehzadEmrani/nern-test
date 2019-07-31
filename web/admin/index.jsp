@@ -194,21 +194,21 @@
                             if (adminAccessTypes.contains(AdminAccessType.CRA_UNIVERSITY)) { %>
                         <a href="show-uni.jsp?sub-code=<%=SubSystemCode.UNIVERSITY.getValue()%>" target="iframe"
                            style="margin-bottom: 10px" class="active sub"
-                           onclick="itemSelected('manage-uni.jsp?sub-code=<%=SubSystemCode.UNIVERSITY.getValue()%>')">
+                           onclick="itemSelected('show-uni.jsp?sub-code=<%=SubSystemCode.UNIVERSITY.getValue()%>')">
                             <%=SubSystemCode.UNIVERSITY.getFaStr()%>
                         </a>
                         <% }
                             if (adminAccessTypes.contains(AdminAccessType.CRA_HOSPITALS)) { %>
-                        <a href="show-uni.jsp?sub-code=<%=SubSystemCode.HOSPITAL.getValue()%>" target="iframe"
+                        <a href="show-uni-medicals.jsp" target="iframe"
                            style="margin-bottom: 10px" class="active sub"
-                           onclick="itemSelected('manage-uni.jsp?sub-code=<%=SubSystemCode.HOSPITAL.getValue()%>')">
+                           onclick="itemSelected('show-uni-medicals.jsp')">
                             <%=SubSystemCode.HOSPITAL.getFaStr()%>
                         </a>
                         <% }
                             if (adminAccessTypes.contains(AdminAccessType.CRA_RESEARCH_CENTER)) { %>
                         <a href="show-uni.jsp?sub-code=<%=SubSystemCode.RESEARCH_CENTER.getValue()%>" target="iframe"
                            style="margin-bottom: 10px" class="active sub"
-                           onclick="itemSelected('manage-uni.jsp?sub-code=<%=SubSystemCode.RESEARCH_CENTER.getValue()%>')">
+                           onclick="itemSelected('show-uni.jsp?sub-code=<%=SubSystemCode.RESEARCH_CENTER.getValue()%>')">
                             <%=SubSystemCode.RESEARCH_CENTER.getFaStr()%>
                         </a>
                         <%

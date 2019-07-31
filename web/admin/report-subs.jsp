@@ -13,7 +13,8 @@
         request.getRequestDispatcher("/pages/login.jsp?role=" + UserRoleType.ADMINS.getValue()).forward(request, response);
         return;
     }
-    if (!AdminDAO.checkAdminAccess(session, admin.getId(), AdminAccessType.SUBS_REPORT.getValue())) {
+    if (!AdminDAO.checkAdminAccess(session, admin.getId(), AdminAccessType.SUBS_REPORT.getValue()) ||
+            !AdminDAO.checkAdminAccess(session, admin.getId(), AdminAccessType.CRA_SUBS_REPORT.getValue())) {
         response.sendError(403);
         return;
     }
