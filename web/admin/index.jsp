@@ -177,6 +177,45 @@
                         <% }%>
                     </div>
                 </div>
+
+                <div class="panel panel-default">
+                    <h3 class=" panel-header-h">
+                        <a class="collapse-header" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapse6"> اطلاعات مشترکین</a>
+                    </h3>
+                    <div id="collapse6" class="panel-collapse collapse">
+                        <% if (adminAccessTypes.contains(AdminAccessType.CRA_SUBS_REPORT)) { %>
+                        <a href="report-subs.jsp" target="iframe"
+                           style="margin-bottom: 10px" class="active sub"
+                           onclick="itemSelected('report-subs.jsp')">
+                            گزارش کمیت مشترکین
+                        </a>
+                        <% }
+                            if (adminAccessTypes.contains(AdminAccessType.CRA_UNIVERSITY)) { %>
+                        <a href="show-uni.jsp?sub-code=<%=SubSystemCode.UNIVERSITY.getValue()%>" target="iframe"
+                           style="margin-bottom: 10px" class="active sub"
+                           onclick="itemSelected('manage-uni.jsp?sub-code=<%=SubSystemCode.UNIVERSITY.getValue()%>')">
+                            <%=SubSystemCode.UNIVERSITY.getFaStr()%>
+                        </a>
+                        <% }
+                            if (adminAccessTypes.contains(AdminAccessType.CRA_HOSPITALS)) { %>
+                        <a href="show-uni.jsp?sub-code=<%=SubSystemCode.HOSPITAL.getValue()%>" target="iframe"
+                           style="margin-bottom: 10px" class="active sub"
+                           onclick="itemSelected('manage-uni.jsp?sub-code=<%=SubSystemCode.HOSPITAL.getValue()%>')">
+                            <%=SubSystemCode.HOSPITAL.getFaStr()%>
+                        </a>
+                        <% }
+                            if (adminAccessTypes.contains(AdminAccessType.CRA_RESEARCH_CENTER)) { %>
+                        <a href="show-uni.jsp?sub-code=<%=SubSystemCode.RESEARCH_CENTER.getValue()%>" target="iframe"
+                           style="margin-bottom: 10px" class="active sub"
+                           onclick="itemSelected('manage-uni.jsp?sub-code=<%=SubSystemCode.RESEARCH_CENTER.getValue()%>')">
+                            <%=SubSystemCode.RESEARCH_CENTER.getFaStr()%>
+                        </a>
+                        <%
+                            }
+                        %>
+                    </div>
+                </div>
                 <%
                     }
                     if (anyAccessToServices) {

@@ -41,7 +41,11 @@ public enum AdminAccessType {
     EQUIPMENT_PARAMETERS("فنی : تعریف پارامتر های تجهیزات"),
     EQUIPMENT_TYPES("فنی : تعریف نوع تجهیزات"),
     EQUIPMENT_DEFINITION("فنی : ثبت تجهیزات"),
-    EQUIPMENT_INSTALL("فنی : نصب تجهیزات");
+    EQUIPMENT_INSTALL("فنی : نصب تجهیزات"),
+    CRA_UNIVERSITY(13000,"سازمان تنظیم : دانشگاه ها و مراکز آموزش عالی"),
+    CRA_SUBS_REPORT("سازمان تنظیم: گزارش کمیت مشترکین"),
+    CRA_RESEARCH_CENTER("سازمان تنظیم: مراکز پژوهشی و تحقیقاتی"),
+    CRA_HOSPITALS("سازمان تنظیم: مراکز آموزشی-پزشکی");
 
     private final int value;
     private final String faStr;
