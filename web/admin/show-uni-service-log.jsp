@@ -104,7 +104,12 @@
                     String dateStr = null;
                     if (isServiceForm) {
                         if (serviceFormRequestTable.getSubscriptionDate() != null)
-                            dateStr = Util.convertGregorianToJalali(serviceFormRequestTable.getServiceFormContractDate());
+                            if(serviceFormRequestTable.getSubscriptionDate().toString() != "null") {
+                                dateStr = Util.convertGregorianToJalali(serviceFormRequestTable.getServiceFormContractDate());
+                            }
+                            else {
+                                dateStr = "تعیین نشده";
+                            }
                         else
                             dateStr = "تعیین نشده";
                     } else {
@@ -123,7 +128,7 @@
                         rowTitle += "<br>";
                         ServiceFormParameter serviceFormParameter = ServiceFormParameterDAO.findServiceFormParameterById(serviceFormRequestTable.getServiceFormParameterId());
                         ServiceForm serviceForm = ServiceFormDAO.findServiceFormById(serviceFormParameter.getServiceFormId());
-                        rowTitle += serviceForm.combine() + "-" + serviceFormParameter.getCode();
+                        rowTitle += serviceForm.faCombine() + "-" + serviceFormParameter.getSpecs();
                     }
                 %>
                 <%=rowTitle%>

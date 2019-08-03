@@ -38,6 +38,7 @@
     boolean anyAccessToMonitoring = false;
     boolean anyAccessToApproving = false;
     boolean anyAccessToTechOP = false;
+    boolean anyAccessToCRA = false;
     if (subSystemLogedIn) {
         for (AdminAccessType adminAccessType : adminAccessTypes) {
             if (adminAccessType != null) {
@@ -54,6 +55,7 @@
                 anyAccessToMonitoring |= accessVal >= 10000 && accessVal < 11000;
                 anyAccessToApproving |= accessVal >= 11000 && accessVal < 12000;
                 anyAccessToTechOP |= accessVal >= 12000 && accessVal < 13000;
+                anyAccessToCRA |= accessVal >= 13000 && accessVal < 14000;
             }
         }
     }
@@ -177,6 +179,13 @@
                         <% }%>
                     </div>
                 </div>
+
+                <%
+                    }
+                }
+                    if (subSystemLogedIn && !personalInfo.getNeedChangePass()) {
+                        if (anyAccessToCRA) {
+                %>
 
                 <div class="panel panel-default">
                     <h3 class=" panel-header-h">

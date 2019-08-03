@@ -185,6 +185,7 @@ public class Util {
             df = new SimpleDateFormat(SimpleDateFormat.YEAR, locale);
             str += " " + df.format(calendar);
         } catch (Exception e) {
+            str = "تاریخ نامشخص";
         }
         return str;
     }
