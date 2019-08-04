@@ -6,6 +6,8 @@
 <%@ page import="com.atrosys.model.AdminSessionInfo" %>
 <%@ page import="com.atrosys.model.UserRoleType" %>
 <%@ page import="com.atrosys.util.Util" %>
+<%@ page import="com.atrosys.model.AdminAccessType" %>
+<%@ page import="com.atrosys.model.AdminSubAccessType" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%
     response.setHeader("Pragma", "no-cache");
@@ -21,6 +23,16 @@
         request.getRequestDispatcher("/pages/login.jsp?role=" + UserRoleType.ADMINS.getValue()).forward(request, response);
         return;
     }
+
+    boolean editSubAccess=false;
+    try {
+        editSubAccess = AdminDAO.checkAdminSubAccess(admin.getId(),
+                AdminAccessType.UNIVERSITY.getValue(),
+                AdminSubAccessType.READ.getValue());
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
     request.setCharacterEncoding("UTF-8");
     String message = null;
 
@@ -28,9 +40,12 @@
 %>
 <h3>
     مشخصات کلی
+   <%if (editSubAccess) {
+       %>
     <a href="manage-uni-info.jsp?action=edit-uni&uni-national-id=<%=university.getUniNationalId()%>&editType=main-info">
         <img src="../images/edit.png" style="width: 30px">
     </a>
+    <%}%>
 </h3>
 <span>شناسه ملی:<%=university.getUniNationalId()%></span>
 <span>نام اصلی:<%=university.getUniName()%></span>
@@ -42,9 +57,12 @@
 <%}%>
 <h3>
     مشخصات مدیران
+    <%if (editSubAccess) {
+    %>
     <a href="manage-uni-info.jsp?action=edit-uni&uni-national-id=<%=university.getUniNationalId()%>&editType=management-info">
         <img src="../images/edit.png" style="width: 30px">
     </a>
+    <%}%>
 </h3>
 <span>بالاترین مقام:<%=university.getTopManagerName()%></span>
 <span>سمت:<%=university.getTopManagerPos()%></span>
@@ -53,9 +71,12 @@
 <span> کد ملی:<%=university.getSignatoryNationalId()%></span>
 <h3>
     نشانی
+    <%if (editSubAccess) {
+    %>
     <a href="manage-uni-info.jsp?action=edit-uni&uni-national-id=<%=university.getUniNationalId()%>&editType=address-info">
         <img src="../images/edit.png" style="width: 30px">
     </a>
+    <%}%>
 </h3>
 <span> استان:<%=StateDAO.findStateNameById(university.getStateId())%></span>
 <span> شهر:<%=CityDAO.findCityNameById(university.getCityId())%></span>
@@ -106,9 +127,12 @@
 %>
 <h3>
     مشخصات نماینده تام الاختیار
+    <%if (editSubAccess) {
+    %>
     <a href="manage-uni-info.jsp?action=edit-uni&uni-national-id=<%=university.getUniNationalId()%>&editType=agent-info">
         <img src="../images/edit.png" style="width: 30px">
     </a>
+    <%}%>
 </h3>
 <span> نام:<%=primaryPersonalInfo.getFname()%></span>
 <span> نام خانوادگی:<%=primaryPersonalInfo.getLname()%></span>
