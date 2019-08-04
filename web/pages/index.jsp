@@ -63,6 +63,14 @@
         }
     SubSystemCode subSystemCode = null;
     UniSessionInfo uniSessionInfo = null;
+    boolean adminLoggedIn=false;
+
+    try {
+        AdminSessionInfo adminSessionInfo = new AdminSessionInfo(session);
+        adminLoggedIn= true;
+    } catch (Exception ignored) {
+    }
+
     if (!isContactPage && !isAboutPage && !isInfoPage && !isTariffPage) {
         isCRM = true;
         subSystemCode = SubSystemCode.fromValue(Integer.valueOf(request.getParameter("sub-code")));
@@ -512,33 +520,40 @@
             </div>
         </a>
         <%
+            String buttonName="عضویت";
             if (uniSessionInfo.isSubSystemLoggedIn())
-                if (university.getUniStatus() >= UniStatus.REGISTER_PAGE_VERIFY.getValue()) {
+                if (university.getUniStatus() >= UniStatus.REGISTER_COMPLETED.getValue()) {
+                    buttonName="پروفایل";
         %>
-        <p style="text-align: center;margin: 10px 0">
+        <p style="text-align: center; width:inherit; margin: 10px 0; overflow-wrap: break-spaces">
             <%=university.getUniName()%>
         </p>
-        <% } else if (university.getUniStatus() > UniStatus.REGISTER_PAGE_VERIFY.getValue()) { %>
+        <% } else if (university.getUniStatus() > UniStatus.REGISTER_PAGE_VERIFY.getValue()) {%>
         <p style="text-align: center;">
             <%=university.getUniName()%>
         </p>
-        <% } %>
+        <% } else if(adminLoggedIn) {
+                    buttonName="پروفایل";
+        }%>
         <div class="sideItems">
             <div class="panel-group accordion" id="accordion">
                 <div class="panel panel-default">
                     <h3 class=" panel-header-h">
                         <a class="collapse-header " data-toggle="collapse" data-parent="accordion"
                            href="#collapse1">
-                            عضویت و پروفایل</a>
+                            <%=buttonName%></a>
                     </h3>
                     <div id="collapse1" class="panel-collapse collapse">
+                        <% if(!registerCompleted)
+                        {
+                        %>
                         <a target="iframe"
-                           class="<%=!registerCompleted?"active ":""%>sub"
-                           onclick="<%=!registerCompleted?"itemSelected('register.jsp?sub-code="+subSystemCode.getValue()+"')":"return false;"%>"
+                           class="<%="active "%>sub"
+                           onclick="<%="itemSelected('register.jsp?sub-code="+subSystemCode.getValue()+"')"%>"
                            href="register.jsp?sub-code=<%=subSystemCode.getValue()%>">
                             عضویت
                         </a>
-                        <%if (registerCompleted) {%>
+                        <%}if (registerCompleted) {%>
                         <a target="iframe"
                            class="active sub"
                            onclick="itemSelected(event)"
