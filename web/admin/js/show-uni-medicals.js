@@ -35,7 +35,7 @@ function getUniData(nationalId) {
     $("#infoModalBody").html("");
     $('#infoModal').modal('show');
     var xmlHttp = new XMLHttpRequest();
-    var url = "manage-uni-info-fragment.jsp?id=" + nationalId;
+    var url = "show-uni-info-fragment.jsp?id=" + nationalId;
     xmlHttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200)
             $("#infoModalBody").html(this.responseText);
@@ -50,6 +50,6 @@ function getMapData(nationalId) {
 }
 
 function getLogData(nationalId) {
-    $("#logIframe").attr("src", "show-uni-state-log.jsp?id=" + nationalId);
+    $("#logIframe").attr("src", "show-uni-service-log.jsp?id=" + nationalId);
     $('#logModal').modal('show');
 }
