@@ -28,7 +28,7 @@
     try {
         editSubAccess = AdminDAO.checkAdminSubAccess(admin.getId(),
                 AdminAccessType.UNIVERSITY.getValue(),
-                AdminSubAccessType.READ.getValue());
+                AdminSubAccessType.EDIT.getValue());
     } catch (Exception e) {
         e.printStackTrace();
     }
