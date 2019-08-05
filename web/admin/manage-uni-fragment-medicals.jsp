@@ -5,6 +5,7 @@
 <%@ page import="com.atrosys.model.*" %>
 <%@ page import="com.atrosys.util.Util" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.atrosys.dao.AdminDAO" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%
     response.setHeader("Pragma", "no-cache");
@@ -20,6 +21,7 @@
         response.sendError(403);
         return;
     }
+    boolean canNotEdit = !AdminDAO.checkAdminSubAccess(admin.getId(), AdminAccessType.MEDICAL_SUBS.getValue(), AdminSubAccessType.EDIT.getValue());
     request.setCharacterEncoding("UTF-8");
     String message = null;
 
@@ -64,6 +66,7 @@
         <th>تاریخ آخرین تغییر وضعیت</th>
         <th>تاریخ عضویت</th>
         <th> نقشه</th>
+        <th style="min-width: 150px"> عملیات</th>
     </tr>
     <%
         for (int i = 0; i < tableRecords.size(); i++) {
@@ -115,6 +118,27 @@
             <a href="#" onclick="getMapData(<%=university.getUniNationalId()%>)">
                 <img src="../images/map.png" style="width: 30px">
             </a>
+        </td>
+        <td>
+            <div class="operatorBox" style="margin: auto;display: inline-block">
+                <a href="change-uni-state.jsp?action=remove&id=<%=university.getUniNationalId()%>"
+                        <%=canNotEdit ? "onclick=\"return false\"" : ""%>
+                   style="float: left;">
+                    <img src="../images/delete<%=canNotEdit?"-dis":""%>.png" style="width: 30px">
+                </a>
+                <a href="change-uni-state.jsp?action=error&id=<%=university.getUniNationalId()%>"
+                   style="float: left;"   <%=canNotEdit ? "onclick=\"return false\"" : ""%>>
+                    <img src="../images/send-error<%=canNotEdit?"-dis":""%>.png" style="width: 30px">
+                </a>
+                <a href="#" onclick="getLogData(<%=university.getUniNationalId()%>)">
+                    <img src="../images/log.png" style="width: 30px">
+                </a>
+                <a href="change-uni-state.jsp?action=confirm&id=<%=university.getUniNationalId()%>"
+                        <%=canNotEdit ? "onclick=\"return false\"" : ""%>
+                   style="float: left;">
+                    <img src="../images/check<%=canNotEdit?"-dis":""%>.png" style="width: 30px">
+                </a>
+            </div>
         </td>
     </tr>
     <%}%>
