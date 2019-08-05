@@ -9,14 +9,18 @@
     response.setDateHeader("Expires", 0);
     AdminSessionInfo adminSessionInfo = new AdminSessionInfo(session);
     Admin admin = adminSessionInfo.getAdmin();
+    boolean hasAccess =false;
+
     if (!adminSessionInfo.isAdminLogedIn()) {
         request.getRequestDispatcher("/pages/login.jsp?role=" + UserRoleType.ADMINS.getValue()).forward(request, response);
         return;
     }
-    if (!AdminDAO.checkAdminAccess(session, admin.getId(), AdminAccessType.SUBS_REPORT.getValue()) ||
-            !AdminDAO.checkAdminAccess(session, admin.getId(), AdminAccessType.CRA_SUBS_REPORT.getValue())) {
+    if ((!AdminDAO.checkAdminAccess(session, admin.getId(), AdminAccessType.SUBS_REPORT.getValue())) &&
+            (!AdminDAO.checkAdminAccess(session, admin.getId(), AdminAccessType.CRA_SUBS_REPORT.getValue()))) {
         response.sendError(403);
         return;
+    }else {
+        hasAccess =true;
     }
     UniversityType[] universityTypes = UniversityType.values();
     long unisCount = UniversityDAO.getRowCount(SubSystemCode.UNIVERSITY.getValue());
@@ -40,7 +44,7 @@
     </style>
 </head>
 <body>
-<% if (AdminDAO.checkAdminSubAccess(admin.getId(), AdminAccessType.SUBS_REPORT.getValue(), AdminSubAccessType.READ.getValue())) { %>
+<% if (hasAccess) { %>
 <div class="formBox">
     <h3 style="text-align: center">گزارش کمیتی مشترکان</h3>
     <table class="formTable" style="width: 100%">
