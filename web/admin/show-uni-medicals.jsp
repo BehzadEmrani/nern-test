@@ -19,11 +19,11 @@
         response.sendError(403);
         return;
     }
-    if (!AdminDAO.checkAdminAccess(session, admin.getId(), AdminAccessType.MEDICAL_SUBS.getValue())) {
+    if (!AdminDAO.checkAdminAccess(session, admin.getId(), AdminAccessType.CRA_HOSPITALS.getValue())) {
         response.sendError(403);
         return;
     }
-    boolean canNotEdit = !AdminDAO.checkAdminSubAccess(admin.getId(), AdminAccessType.MEDICAL_SUBS.getValue(), AdminSubAccessType.EDIT.getValue());
+    boolean canNotEdit = !AdminDAO.checkAdminSubAccess(admin.getId(), AdminAccessType.CRA_HOSPITALS.getValue(), AdminSubAccessType.EDIT.getValue());
     request.setCharacterEncoding("UTF-8");
     String message = null;
 
