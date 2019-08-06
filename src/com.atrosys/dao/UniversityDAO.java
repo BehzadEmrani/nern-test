@@ -9,8 +9,6 @@ import com.atrosys.util.SessionUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
@@ -302,7 +300,7 @@ public class UniversityDAO {
         Session session = SessionUtil.getSession();
         Query query = session.createQuery("select u.uniNationalId,u.uniName,u.typeVal,u.uniStatus,u.uniSubStatus ,max(l.timeStamp) as time,c.name,s.name,u.uniSubSystemCode from University u,UniStatusLog  l inner join City c on c.cityId=u.cityId inner join State s on s.stateId=u.stateId where u.uniNationalId = l.uniNationalId and u.uniSubSystemCode=:uniSubSystemCode and u.stateId=:stateId group by u.uniNationalId order by time desc");
         query.setParameter("uniSubSystemCode", subCode);
-        query.setParameter("stateId", Math.toIntExact(stateId));
+        query.setParameter("stateId", stateId);
         query.setFirstResult(startIndex);
         query.setMaxResults(count);
         List list = query.getResultList();
@@ -365,8 +363,6 @@ public class UniversityDAO {
     public static long getRowCount(int subSystem) throws Exception {
 
         Session session;
-
-        SessionFactory session_factory = new Configuration().configure().buildSessionFactory();
 
         session = SessionUtil.getSession();
         Criteria criteria = session.createCriteria(University.class);
