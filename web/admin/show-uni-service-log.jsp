@@ -18,7 +18,7 @@
         request.getRequestDispatcher("/pages/login.jsp?role=" + UserRoleType.ADMINS.getValue()).forward(request, response);
         return;
     }
-    if (!AdminDAO.checkAdminSubAccess(admin.getId(), AdminAccessType.UNIVERSITY.getValue(), AdminSubAccessType.READ.getValue())) {
+    if (!AdminDAO.checkAdminSubAccess(admin.getId(), AdminAccessType.CRA_UNIVERSITY.getValue(), AdminSubAccessType.READ.getValue())) {
         response.sendError(403);
         return;
     }
