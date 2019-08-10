@@ -140,7 +140,7 @@
                         <%
                             String printLink = null;
                             if (isServiceForm)
-                                printLink = "service-form-contract-print.jsp?request-id=" + serviceFormRequestTable.getId() + "";
+                                printLink = "../pages/service-form-contract-print.jsp?request-id=" + serviceFormRequestTable.getId() + "";
                         %>
                         <a target="_blank"
                            href="<%=printLink!=null?printLink:"#"%>" <%=printLink == null ? "onclick='return false;'" : ""%>>
