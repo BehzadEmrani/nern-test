@@ -20,6 +20,7 @@
     AdminSessionInfo adminSessionInfo = new AdminSessionInfo(session);
     Admin admin = adminSessionInfo.getAdmin();
     String message = null;
+    boolean isLegals = "true".equals(request.getParameter("legal"));
 
     if (!adminSessionInfo.isLogedIn()) {
         request.getRequestDispatcher("/pages/login.jsp?role=" + UserRoleType.ADMINS.getValue()).forward(request, response);
@@ -29,32 +30,55 @@
         response.sendError(403);
         return;
     }
-    if (!AdminDAO.checkAdminAccess(session, admin.getId(), AdminAccessType.ADMINS_REGISTER.getValue())) {
-        response.sendError(403);
-        return;
-    }
+
     boolean addSubAccess = false;
     boolean readSubAccess = false;
     boolean editSubAccess = false;
+    if (isLegals){
+        if (!AdminDAO.checkAdminAccess(session, admin.getId(), AdminAccessType.MANAGE_PERSONS_LEGAL.getValue())) {
+            response.sendError(403);
+            return;
+        }
+        try {
 
-    try {
+            addSubAccess = AdminDAO.checkAdminSubAccess(admin.getId(),
+                    AdminAccessType.MANAGE_PERSONS_LEGAL.getValue(),
+                    AdminSubAccessType.ADD.getValue());
+            readSubAccess = AdminDAO.checkAdminSubAccess(admin.getId(),
+                    AdminAccessType.MANAGE_PERSONS_LEGAL.getValue(),
+                    AdminSubAccessType.READ.getValue());
+            editSubAccess = AdminDAO.checkAdminSubAccess(admin.getId(),
+                    AdminAccessType.MANAGE_PERSONS_LEGAL.getValue(),
+                    AdminSubAccessType.EDIT.getValue());
+        } catch (Exception e) {
 
-        addSubAccess = AdminDAO.checkAdminSubAccess(admin.getId(),
-                AdminAccessType.ADMINS_REGISTER.getValue(),
-                AdminSubAccessType.ADD.getValue());
-        readSubAccess = AdminDAO.checkAdminSubAccess(admin.getId(),
-                AdminAccessType.ADMINS_REGISTER.getValue(),
-                AdminSubAccessType.READ.getValue());
-        editSubAccess = AdminDAO.checkAdminSubAccess(admin.getId(),
-                AdminAccessType.ADMINS_REGISTER.getValue(),
-                AdminSubAccessType.EDIT.getValue());
-    } catch (Exception e) {
-
+        }
     }
+    else{
+
+        if (!AdminDAO.checkAdminAccess(session, admin.getId(), AdminAccessType.MANAGE_PERSONS.getValue())) {
+            response.sendError(403);
+            return;
+        }
+        try {
+
+            addSubAccess = AdminDAO.checkAdminSubAccess(admin.getId(),
+                    AdminAccessType.MANAGE_PERSONS.getValue(),
+                    AdminSubAccessType.ADD.getValue());
+            readSubAccess = AdminDAO.checkAdminSubAccess(admin.getId(),
+                    AdminAccessType.MANAGE_PERSONS.getValue(),
+                    AdminSubAccessType.READ.getValue());
+            editSubAccess = AdminDAO.checkAdminSubAccess(admin.getId(),
+                    AdminAccessType.MANAGE_PERSONS.getValue(),
+                    AdminSubAccessType.EDIT.getValue());
+        } catch (Exception e) {
+
+        }
+      }
     boolean isEdit = "edit-person".equals(request.getParameter("action")) && editSubAccess;
     boolean isSendEdit = "send-edit-person".equals(request.getParameter("action"));
     boolean isSendNewPerson = "send-person".equals(request.getParameter("action"));
-    boolean isLegals = "true".equals(request.getParameter("legal"));
+
     if (isSendNewPerson && !addSubAccess) {
         response.sendError(403);
         return;
