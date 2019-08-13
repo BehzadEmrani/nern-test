@@ -251,58 +251,58 @@
         <%}%>
         </tbody>
     </table>
-    <%
-        for (int i = 0; i < adminsUserRoleList.size(); i++) {
-            UserRole userRole = adminsUserRoleList.get(i);
-            PersonalInfo personalInfo = PersonalInfoDAO.findPersonalInfoByNationalId(userRole.getNationalId());
-            Admin tableAdmin = AdminDAO.findAdminByRoleId(userRole.getRoleId());
-    %>
-    <!-- Modal -->
-    <div class="modal fade" id="accessModal<%=i%>" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-body" style="text-align: center">
-                    <h4 style="text-align: center">
-                        دسترسی ها
-                    </h4>
-                    <table class="table table-striped" style="border: 1px solid #41709c;">
-                        <tr style="background: #337ab7;color: white;">
-                            <th width="30px">ردیف</th>
-                            <th>نام بخش</th>
-                            <% for (AdminSubAccessType adminSubAccessType : AdminSubAccessType.values()) { %>
-                            <th><%=adminSubAccessType.getFaStr()%>
-                            </th>
-                            <%}%>
-                        </tr>
-                        <%
-                            List<AdminAccess> adminAccesses = AdminDAO.findAllAdminAccess(tableAdmin.getId());
-                            for (int j = 0; j < AdminAccessType.values().length; j++) {
-                                AdminAccessType adminAccessType = AdminAccessType.values()[j];
-                        %>
-                        <tr>
-                            <td width="30px"><%=j + 1%>
-                            </td>
-                            <td><%=adminAccessType.getFaStr()%>
-                            </td>
-                            <% for (AdminSubAccessType adminSubAccessType : AdminSubAccessType.values()) { %>
-                            <td>
-                                <%
-                                    boolean isSelected = false;
-                                    for (AdminAccess adminAccess : adminAccesses)
-                                        isSelected |= adminAccessType.getValue() == adminAccess.getAccessVal() &&
-                                                adminSubAccessType.getValue() == adminAccess.getSubAccessVal();
-                                %>
-                                <input type="checkbox" style="margin: auto" <%=isSelected?"checked":""%> disabled>
-                            </td>
-                            <%}%>
-                        </tr>
-                        <% }%>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <%}%>
+<%--    <%--%>
+<%--        for (int i = 0; i < adminsUserRoleList.size(); i++) {--%>
+<%--            UserRole userRole = adminsUserRoleList.get(i);--%>
+<%--            PersonalInfo personalInfo = PersonalInfoDAO.findPersonalInfoByNationalId(userRole.getNationalId());--%>
+<%--            Admin tableAdmin = AdminDAO.findAdminByRoleId(userRole.getRoleId());--%>
+<%--    %>--%>
+<%--    <!-- Modal -->--%>
+<%--    <div class="modal fade" id="accessModal<%=i%>" role="dialog">--%>
+<%--        <div class="modal-dialog modal-lg">--%>
+<%--            <div class="modal-content">--%>
+<%--                <div class="modal-body" style="text-align: center">--%>
+<%--                    <h4 style="text-align: center">--%>
+<%--                        دسترسی ها--%>
+<%--                    </h4>--%>
+<%--                    <table class="table table-striped" style="border: 1px solid #41709c;">--%>
+<%--                        <tr style="background: #337ab7;color: white;">--%>
+<%--                            <th width="30px">ردیف</th>--%>
+<%--                            <th>نام بخش</th>--%>
+<%--                            <% for (AdminSubAccessType adminSubAccessType : AdminSubAccessType.values()) { %>--%>
+<%--                            <th><%=adminSubAccessType.getFaStr()%>--%>
+<%--                            </th>--%>
+<%--                            <%}%>--%>
+<%--                        </tr>--%>
+<%--                        <%--%>
+<%--                            List<AdminAccess> adminAccesses = AdminDAO.findAllAdminAccess(tableAdmin.getId());--%>
+<%--                            for (int j = 0; j < AdminAccessType.values().length; j++) {--%>
+<%--                                AdminAccessType adminAccessType = AdminAccessType.values()[j];--%>
+<%--                        %>--%>
+<%--                        <tr>--%>
+<%--                            <td width="30px"><%=j + 1%>--%>
+<%--                            </td>--%>
+<%--                            <td><%=adminAccessType.getFaStr()%>--%>
+<%--                            </td>--%>
+<%--                            <% for (AdminSubAccessType adminSubAccessType : AdminSubAccessType.values()) { %>--%>
+<%--                            <td>--%>
+<%--                                <%--%>
+<%--                                    boolean isSelected = false;--%>
+<%--                                    for (AdminAccess adminAccess : adminAccesses)--%>
+<%--                                        isSelected |= adminAccessType.getValue() == adminAccess.getAccessVal() &&--%>
+<%--                                                adminSubAccessType.getValue() == adminAccess.getSubAccessVal();--%>
+<%--                                %>--%>
+<%--                                <input type="checkbox" style="margin: auto" <%=isSelected?"checked":""%> disabled>--%>
+<%--                            </td>--%>
+<%--                            <%}%>--%>
+<%--                        </tr>--%>
+<%--                        <% }%>--%>
+<%--                    </table>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--    <%}%>--%>
 </div>
 <%}%>
 <script src="../js/jquery.min.js"></script>
