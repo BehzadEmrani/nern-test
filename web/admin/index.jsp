@@ -176,7 +176,16 @@
                            onclick="itemSelected('manage-uni-medicals.jsp')">
                             بهداشت
                         </a>
+                        <% }
+                            if (adminAccessTypes.contains(AdminAccessType.SEMINARY)) {
+                        %>
+                        <a href="manage-uni.jsp?sub-code=<%=SubSystemCode.SEMINARY.getValue()%>" target="iframe" style="margin-bottom: 10px"
+                           class="active sub"
+                           onclick="itemSelected('manage-uni.jsp?sub-code=<%=SubSystemCode.SEMINARY.getValue()%>')">
+                            حوزه های علمیه
+                        </a>
                         <% }%>
+
                     </div>
                 </div>
 
