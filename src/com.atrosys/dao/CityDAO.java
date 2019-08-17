@@ -54,6 +54,11 @@ public class CityDAO {
         return query.getResultList().size() == 0;
     }
 
+    public static boolean isCityInState(Long stateID , Long cityID) throws Exception{
+        City mCity = findCityById(cityID);
+        return mCity.getStateId().equals(stateID);
+    }
+
     public static City save(City city) throws Exception {
         if (city.getName() != null) {
             if (city.getName().trim().isEmpty())

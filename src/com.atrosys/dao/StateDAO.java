@@ -32,6 +32,13 @@ public class StateDAO {
         return (String) query.uniqueResult();
     }
 
+    public static Long findIdByStateName(String name) throws Exception {
+        Session session = SessionUtil.getSession();
+        Query query = session.createQuery("select s.id from State s where s.name=:name");
+        query.setParameter("name", name);
+        return (Long) query.uniqueResult() ;
+    }
+
     public static boolean isStateNameNew(String name) throws Exception {
         Session session = SessionUtil.getSession();
         Query query = session.createQuery("select u.id from State u where u.name= :name");
