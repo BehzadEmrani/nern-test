@@ -153,9 +153,9 @@
                             }
                             if (adminAccessTypes.contains(AdminAccessType.SEE_REQUESTED_SERVICE_FORMS)) {
                         %>
-                        <a href="../pages/requested-service-form.jsp" target="iframe" style="margin-bottom: 10px"
+                        <a href="request-service-form.jsp" target="iframe" style="margin-bottom: 10px"
                            class="active sub"
-                           onclick="itemSelected('../pages/requested-service-form.jsp')">
+                           onclick="itemSelected('request-service-form.jsp')">
                             سرویس فرم های درخواستی
                         </a>
                         <%

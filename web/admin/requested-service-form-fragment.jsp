@@ -10,7 +10,10 @@
     response.setHeader("Pragma", "no-cache");
     response.setHeader("Cache-Control", "no-cache");
     response.setDateHeader("Expires", 0);
+    %>
 
+
+<%
     boolean isAdminPage = false;
 
     boolean addSubAccess = false;
@@ -72,8 +75,13 @@
     }
     List<ServiceFormRequest> serviceFormRequestList;
     List<ServiceContractTableRecord> serviceContractTableRecords = new LinkedList<>();
+    String uniName = request.getParameter("uni-name");
+    String stateName = request.getParameter("state");
+    String cityName = request.getParameter("city");
+    String stateId = request.getParameter("service");
     if (isAdminPage)
-        serviceFormRequestList = ServiceFormRequestDAO.findAllServiceFormRequests();
+
+        serviceFormRequestList = ServiceFormRequestDAO.filterServiceFormRequestByUniId(uniName, stateName, cityName, stateId);
     else
         serviceFormRequestList = ServiceFormRequestDAO.findServiceFormRequestByUniId(university.getUniNationalId());
 
