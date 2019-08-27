@@ -102,8 +102,8 @@
 
 %>
 
-<table class="fixed-table table table-striped" id="customerTable">
-    <thead>
+<table class="fixed-table table table-striped" id="customerTable" style="height: 500px">
+    <thead style="height: 50px">
     <tr style="background: #337ab7;color: white;">
         <th style="width:30px">ردیف</th>
         <%if (isAdminPage) {%>
@@ -121,7 +121,7 @@
         <th>عمیلیات</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody style="height: 450px">
     <%
         for (int i = 0; i < serviceContractTableRecords.size(); i++) {
             ServiceContractTableRecord serviceContractTableRecord = serviceContractTableRecords.get(i);
