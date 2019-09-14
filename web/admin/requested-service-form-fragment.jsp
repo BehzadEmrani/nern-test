@@ -10,7 +10,7 @@
     response.setHeader("Pragma", "no-cache");
     response.setHeader("Cache-Control", "no-cache");
     response.setDateHeader("Expires", 0);
-    %>
+%>
 
 
 <%
@@ -202,7 +202,7 @@
             <%
                 String printLink = null;
                 if (isServiceForm)
-                    printLink = "service-form-contract-print.jsp?request-id=" + serviceFormRequestTable.getId() +
+                    printLink = "../pages/service-form-contract-print.jsp?request-id=" + serviceFormRequestTable.getId() +
                             (!isAdminPage ? "&sub-code=" + subSystemCode.getValue() : "");
             %>
             <a target="_blank"
@@ -307,7 +307,7 @@
             </div>
             <%}%>
             <%
-                String uploadLink = "upload-service-form-doc.jsp?id=" + serviceFormRequestTable.getId() + (!isAdminPage ? "&sub-code=" + (subSystemCode != null ? subSystemCode.getValue() : null) : "");
+                String uploadLink = "../pages/upload-service-form-doc.jsp?id=" + serviceFormRequestTable.getId() + (!isAdminPage ? "&sub-code=" + (subSystemCode != null ? subSystemCode.getValue() : null) : "");
             %>
             <a href="<%=uploadLink!=null?uploadLink:"#"%>" <%=uploadLink == null ? "onclick='return false;'" : ""%>>
                 <img src="../images/upload<%=uploadLink == null ? "-dis" : ""%>.png" style="width: 30px">
