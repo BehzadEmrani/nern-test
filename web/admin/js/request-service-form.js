@@ -4,6 +4,7 @@ var stateFilter = $("#stateFilter");
 var cityFilter = $("#cityFilter");
 var serviceFilter = $("#serviceFilter");
 var subServiceFilter = $("#subServiceFilter");
+var situationFilter =$("#situationFilter");
 var subCode = tableContainer.attr("sub-code");
 
 function getTableData(delta) {
@@ -17,9 +18,11 @@ function getTableData(delta) {
     var fCity = cityFilter.val() != "" ? cityFilter.val() : "-1";
     var fState = stateFilter.val() != "" ? stateFilter.val() : "-1";
     var fService = serviceFilter.val();
+    var fsituation = situationFilter.val() != "" ? situationFilter.val() : "-1";
     var fSubService = subServiceFilter.val() != null ? subServiceFilter.val() : "-1";
     var url = "requested-service-form-fragment.jsp?page=" + pageNo + "&uni-name="+ fName +
-        "&city=" + fCity + "&state=" + fState + "&service=" + fService + "&subservice=" + fSubService;
+        "&city=" + fCity + "&state=" + fState + "&service=" + fService + "&subservice=" + fSubService + "&status=" + fsituation;
+
     xmlHttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200)
             tableContainer.html(this.responseText);

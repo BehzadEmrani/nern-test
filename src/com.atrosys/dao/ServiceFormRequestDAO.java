@@ -36,12 +36,15 @@ public class ServiceFormRequestDAO {
     }
 
     public static List<ServiceFormRequest> filterServiceFormRequestByUniId(
-            String uniName, String stateName, String cityName , String serviceId) throws Exception {
+            String uniName, String stateName, String cityName , String serviceId, String status) throws Exception {
         Session session = SessionUtil.getSession();List<QueryParameter> prList = new LinkedList<>();
         prList.add(new QueryParameter("u.uniName", String.valueOf(uniName), "%"));
         prList.add(new QueryParameter("s.name", stateName, "%"));
         prList.add(new QueryParameter("c.name", cityName, "%"));
         prList.add(new QueryParameter("subService.serviceId", serviceId, "="));
+        prList.add(new QueryParameter("r.statusVal", status, "="));
+
+
         Query query = session.createQuery("select r from ServiceFormRequest r inner join University u on r.uniId=u.uniNationalId inner join City c on u.cityId = c.cityId inner join State s on s.stateId=u.stateId " +
                 "inner join ServiceFormParameter seviceFormParameter on r.serviceFormParameterId=seviceFormParameter.id inner join ServiceForm serviceForm on seviceFormParameter.serviceFormId=serviceForm.id " +
                 "inner join SubService subService on serviceForm.subServiceId=subService.id " +
