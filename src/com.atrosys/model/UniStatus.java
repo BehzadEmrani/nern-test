@@ -9,12 +9,14 @@ public enum UniStatus {
     SUBSCRIBE_PAGE_ERROR("اصلاح خطا در فرم درخواست اشتراک"),
     NEXT_PHASE("انتظار برای بررسی  در فاز بعد"),
     PRIMARY_AGENT_REGISTER(2000, "ثبت نام مسئول اصلی"),
-    REGISTER_COMPLETED(3000, "ثبت نام شده"),
+    REGISTER_COMPLETED(3000, "ثبت قرارداد"),
     UNI_EDIT_VERIFY("تایید ویرایش دانشگاه ها"),
     AGENT_EDIT_VERIFY("تایید ویرایش مسئول اصلی"),
     UNI_CANCEL_REQUEST_VERIFY("انتظار برای تایید درخواست لغو عضویت"),
     UNI_CANCEL_REQUEST_CONFIRM("تایید نهایی لغو عضویت"),
-    UNI_SUBSCRIPTION_CANCELLED("تایید ویرایش دانشگاه ها");
+    UNI_SUBSCRIPTION_CANCELLED("تایید ویرایش دانشگاه ها"),
+    REGISTER_SERVICE_FORM("ثبت سرویس فرم");
+
 
     private final int value;
     private final String faStr;
