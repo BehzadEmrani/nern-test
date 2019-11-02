@@ -79,9 +79,10 @@
     String stateName = request.getParameter("state");
     String cityName = request.getParameter("city");
     String stateId = request.getParameter("service");
+    String status = request.getParameter("status");
     if (isAdminPage)
 
-        serviceFormRequestList = ServiceFormRequestDAO.filterServiceFormRequestByUniId(uniName, stateName, cityName, stateId);
+        serviceFormRequestList = ServiceFormRequestDAO.filterServiceFormRequestByUniId(uniName, stateName, cityName, stateId , status);
     else
         serviceFormRequestList = ServiceFormRequestDAO.findServiceFormRequestByUniId(university.getUniNationalId());
 

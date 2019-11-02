@@ -3,7 +3,12 @@
 <%@ page import="com.atrosys.model.*" %>
 <%@ page import="com.atrosys.entity.Service" %>
 <%@ page import="com.atrosys.dao.ServiceDAO" %>
+<%@ page import="com.atrosys.dao.UniversityDAO" %>
+<%@ page import="static com.atrosys.dao.UniversityDAO.findUniStatusByUniNationalId" %>
+<%@ page import="static com.atrosys.dao.UniversityDAO.findUniStatusByUniNationalId" %>
+<%@ page import="com.atrosys.dao.ServiceFormRequestDAO" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
+
 <%
     response.setHeader("Pragma", "no-cache");
     response.setHeader("Cache-Control", "no-cache");
@@ -18,6 +23,8 @@
         response.sendError(403);
         return;
     }
+
+
 
 
     request.setCharacterEncoding("UTF-8");
@@ -78,7 +85,9 @@
     </div>
     <div class="formItem">
         <label>خدمت :</label>
-        <select class="formSelect" id="serviceFilter" style="width: 200px;">
+
+        <select class="formSelect" id="serviceFilter" style="width: 150px;  margin-left: 20px;">
+            <option value="-1">همه خدمت ها</option>
             <% for (Service service : ServiceDAO.findServicesByCatId(Long.valueOf("1"))) {%>
             <option value="<%=service.getId()%>">
                 <%=service.getFaName()%>
@@ -86,6 +95,27 @@
             <%}%>
         </select>
     </div>
+
+
+    <!--...................................................................................-->
+
+    <div class="formItem">
+        <label>وضعیت :</label>
+        <select class="formSelect" id="situationFilter" style="width: 150px; margin-left: 20px;">
+            <option value="-1">همه وضعیت ها</option>
+            <% for (ServiceFormRequestStatus serviceFormRequestStatus : ServiceFormRequestStatus.values()) {%>
+            <option value="<%=serviceFormRequestStatus.getValue()%>">
+                <%=serviceFormRequestStatus.getFaStr()%>
+            </option>
+            <%}%>
+        </select>
+    </div>
+
+    <!--...................................................................................-->
+
+
+
+
     <button class="btn btn-primary" onclick="getTableData(0)">اعمال</button>
 </div>
 <div class="formBox" id="tableContainer" >

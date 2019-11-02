@@ -71,15 +71,25 @@
     } catch (Exception ignored) {
     }
 
+
     if (!isContactPage && !isAboutPage && !isInfoPage && !isTariffPage) {
         isCRM = true;
         subSystemCode = SubSystemCode.fromValue(Integer.valueOf(request.getParameter("sub-code")));
-        if (subSystemCode == null) {
-            response.sendError(404, "No sub system code!");
-            return;
-        } else
-            uniSessionInfo = new UniSessionInfo(session, UserRoleType.fromSubSystemCode(subSystemCode));
+    } else {
+        subSystemCode = SubSystemCode.fromValue(1);
     }
+
+    if (subSystemCode == null) {
+        response.sendError(404, "No sub system code!");
+        return;
+    } else {
+        try {
+            uniSessionInfo = new UniSessionInfo(session, UserRoleType.fromSubSystemCode(subSystemCode));
+        } catch (Exception ignored) {
+
+        }
+    }
+
     Boolean subSystemLoggedIn = null;
     University university = null;
     UniStatus uniStatus = null;
@@ -117,16 +127,11 @@
     <link href="../css/style.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="../images/favicon.png"/>
     <style>
-        <% if (!isCRM){%>
-        .sidenav {
-            top: 65px;
-        }
 
-        <%}%>
     </style>
 </head>
 <body>
-<div id="header" style="border-bottom: 1px solid black;<%=!isCRM?"height:65px;":""%>">
+<div id="header" style="border-bottom: 1px solid black;">
     <span class="lanGroup" id="langGP">
     <div class="lanPop">
     <a href="#" onclick="return false;">SP</a>
@@ -167,7 +172,8 @@
     </span>
 
     <a href="javascript:void(0);" onclick="langDropDown()" id="langBtn">Lang</a>
-    <%if (isCRM) {%>
+
+
     <div id="btnContainer">
         <a href="login.jsp?<%=(uniSessionInfo.isLoggedIn()?"action=logout&":"")
         +"role="+UserRoleType.fromSubSystemCode(subSystemCode).getValue()%>"
@@ -204,7 +210,7 @@
         %>
 
     </div>
-    <%}%>
+
 
 
     <div class="topnav" id="topnav">
@@ -221,7 +227,7 @@
             &nbsp;&#9776;</a>
     </div>
 </div>
-<div id="siteContent" <%=!isCRM ? " style='top: 65px;'" : ""%>>
+<div id="siteContent" >
     <div class="sidenav" id="sideNav">
         <% if (isContactPage) {%>
         <a href="contact-shoa.jsp" target="iframe" onclick="itemSelected('contact-shoa.jsp')">
@@ -255,7 +261,7 @@
                         </a>
                         <a href="contact-seemsys.jsp" target="iframe" class="active sub"
                            onclick="itemSelected('contact-seemsys.jsp')">
-                            شرکت سیمرغ سامانه
+                            شرکت سیمرغ سامانه تهران
                         </a>
                     </div>
                 </div>
@@ -533,7 +539,7 @@
             <%=university.getUniName()%>
         </p>
         <% } else if(adminLoggedIn) {
-                    buttonName="پروفایل";
+            buttonName="پروفایل";
         }%>
         <div class="sideItems">
             <div class="panel-group accordion" id="accordion">
