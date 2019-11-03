@@ -47,7 +47,7 @@
     AdminStateListRole listRole= AdminStateListRoleDAO.findAdminStateListRoleByAdminId(admin.getId()).get(0);
     State state=StateDAO.findStateById(listRole.getStateId());
     Integer pageNo = pageNoStr != null ? Integer.valueOf(pageNoStr) : 1;
-    List<UniTableRecord> tableRecords = UniversityDAO.stateAdminUnisList(SubSystemCode.UNIVERSITY.getValue(),state.getStateId(), (pageNo - 1) * Constants.SUBS_PER_PAGE, Constants.SUBS_PER_PAGE);
+    List<UniTableRecord> tableRecords = UniversityDAO.stateAdminUnisList(-1,state.getStateId(), (pageNo - 1) * Constants.SUBS_PER_PAGE, Constants.SUBS_PER_PAGE);
     boolean needPreviousPageBtn = pageNo > 1;
     boolean needNextPageBtn = UniversityDAO.stateAdminUnisListHaveNextPage(SubSystemCode.UNIVERSITY.getValue(), state.getStateId(),(pageNo - 1) * Constants.SUBS_PER_PAGE, Constants.SUBS_PER_PAGE);
 %>
