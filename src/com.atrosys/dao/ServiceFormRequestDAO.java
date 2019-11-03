@@ -12,6 +12,10 @@ import org.hibernate.query.Query;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Created by Misagh Dayer on 3/11/19.
+ */
+
 public class ServiceFormRequestDAO {
     public static List<ServiceFormRequest> findAllServiceFormRequests() throws Exception {
         Session session = SessionUtil.getSession();
@@ -33,6 +37,14 @@ public class ServiceFormRequestDAO {
         Query query = session.createQuery("select c from ServiceFormRequest c where c.uniId=:uniId");
         query.setParameter("uniId", uniId);
         return (List<ServiceFormRequest>) query.getResultList();
+    }
+
+    public static Integer findServiceFormRequestCountByUniId(
+            long uniId) throws Exception {
+        Session session = SessionUtil.getSession();
+        Query query = session.createQuery("select c.id from ServiceFormRequest c where c.uniId=:uniId");
+        query.setParameter("uniId", uniId);
+        return query.getResultList().size();
     }
 
     public static List<ServiceFormRequest> filterServiceFormRequestByUniId(

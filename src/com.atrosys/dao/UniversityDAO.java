@@ -2,10 +2,7 @@ package com.atrosys.dao;
 
 import com.atrosys.entity.University;
 import com.atrosys.model.*;
-import com.atrosys.util.HibernateUtil;
-import com.atrosys.util.QueryBuilder;
-import com.atrosys.util.QueryParameter;
-import com.atrosys.util.SessionUtil;
+import com.atrosys.util.*;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -206,6 +203,34 @@ public class UniversityDAO {
         return records;
     }
 
+    public static List<UniApiRecordInspectors> filterCraApiResponse(int subCode, int typeVal) throws Exception {
+        Session session = SessionUtil.getSession();
+        List<QueryParameter> prList = new LinkedList<>();
+        prList.add(new QueryParameter("u.uniSubSystemCode", String.valueOf(subCode), "="));
+        prList.add(new QueryParameter("u.typeVal", String.valueOf(typeVal), "="));
+        Query query = session.createQuery("select u.uniNationalId,u.uniName,u.typeVal,u.uniSubSystemCode ,max(l.timeStamp) as time,c.name,s.name from University u,UniStatusLog  l inner join City c on c.cityId=u.cityId inner join State s on s.stateId=u.stateId inner join ServiceFormRequest q on q.uniId = u.uniNationalId where u.uniNationalId = l.uniNationalId " +
+                QueryBuilder.buildWhereQuery(prList, false) + " group by u.uniNationalId order by time desc");
+        List list = query.getResultList();
+        List<UniApiRecordInspectors> records = new ArrayList<>();
+        int size = 0;
+        while (size < list.size()) {
+            Object[] sub = (Object[]) list.get(size);
+            UniApiRecordInspectors record = new UniApiRecordInspectors();
+            record.setUniNationalId((Long) sub[0]);
+            record.setUniName((String) sub[1]);
+            record.setUniSubCode((Integer) sub[2]);
+            record.setUniType((Integer) sub[3]);
+            record.setRegisterDate(Util.convertTimeStampToJalali((Timestamp) sub[4]));
+            record.setCityName((String) sub[5]);
+            record.setStateName((String) sub[6]);
+            record.setNumService(ServiceFormRequestDAO.findServiceFormRequestCountByUniId(record.getUniNationalId()));
+
+            records.add(record);
+            size++;
+        }
+        return records;
+    }
+
     public static boolean filterMedUniversitiesInRangeHaveNextPage(int subCode, long uniNationalId, String uniName, String stateName,
                                                                    String cityName, int typeVal, int uniStatus, int startIndex, int count) throws Exception {
         return filterMedUniversitiesInRange(subCode, uniNationalId, uniName, stateName, cityName, typeVal, uniStatus, startIndex + count, count).size() != 0;
@@ -298,8 +323,7 @@ public class UniversityDAO {
 
     public static List<UniTableRecord>stateAdminUnisList(int subCode,Long stateId, int startIndex, int count) throws Exception {
         Session session = SessionUtil.getSession();
-        Query query = session.createQuery("select u.uniNationalId,u.uniName,u.typeVal,u.uniStatus,u.uniSubStatus ,max(l.timeStamp) as time,c.name,s.name,u.uniSubSystemCode from University u,UniStatusLog  l inner join City c on c.cityId=u.cityId inner join State s on s.stateId=u.stateId where u.uniNationalId = l.uniNationalId and u.uniSubSystemCode=:uniSubSystemCode and u.stateId=:stateId group by u.uniNationalId order by time desc");
-        query.setParameter("uniSubSystemCode", subCode);
+        Query query = session.createQuery("select u.uniNationalId,u.uniName,u.typeVal,u.uniStatus,u.uniSubStatus ,max(l.timeStamp) as time,c.name,s.name,u.uniSubSystemCode from University u,UniStatusLog  l inner join City c on c.cityId=u.cityId inner join State s on s.stateId=u.stateId where u.uniNationalId = l.uniNationalId and u.stateId=:stateId group by u.uniNationalId order by time desc");
         query.setParameter("stateId", stateId);
         query.setFirstResult(startIndex);
         query.setMaxResults(count);

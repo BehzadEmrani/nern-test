@@ -1,7 +1,8 @@
 <%@ page import="com.atrosys.dao.UniversityDAO"%>
 <%@ page import="com.atrosys.model.SubSystemCode"%>
+<%@ page import="com.atrosys.model.UniApiRecordInspectors"%>
 <%@ page import="com.google.gson.Gson"%>
-<%@ page import="java.util.HashMap"%><%@ page import="com.atrosys.model.UniTableRecord"%><%@ page import="java.util.List"%>
+<%@ page import="java.util.List"%>
 <%@ page contentType="application/json;charset=UTF-8" language="java" %>
 <%
     response.setHeader("Pragma", "no-cache");
@@ -14,8 +15,7 @@
 
     SubSystemCode subSystemCode = SubSystemCode.fromValue(Integer.valueOf(request.getParameter("sub-code")));
 
-    List<UniTableRecord> tableRecords = UniversityDAO.filterUniversitiesInRange(subSystemCode.getValue(), -1, "-1", "-1"
-            , "-1", -1, -1, (1 - 1) * 25,100);
+    List<UniApiRecordInspectors> tableRecords = UniversityDAO.filterCraApiResponse(subSystemCode.getValue(), -1);
 
     String json = new Gson().toJson(tableRecords);
     response.setContentType("application/json");
