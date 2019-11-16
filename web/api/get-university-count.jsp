@@ -4,11 +4,16 @@
 <%@ page import="java.util.HashMap"%>
 <%@ page contentType="application/json;charset=UTF-8" language="java" %>
 <%
-    response.setHeader("Pragma", "no-cache");
-    response.setHeader("Cache-Control", "no-cache");
-    response.setHeader("Access-Control-Allow-Origin", "*");
-    response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS");
-    response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With");
+    response.addHeader("Pragma", "no-cache");
+    response.addHeader("Cache-Control", "no-cache");
+    response.addHeader("Access-Control-Allow-Origin", "*");
+    response.addHeader("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS");
+    response.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Accept, X-Requested-With, access-control-allow-origin, access-control-allow-methods, access-control-allow-headers");
+
+    if (request.getMethod().equals("OPTIONS")) {
+        response.setStatus(HttpServletResponse.SC_OK);
+        out.flush();
+    }
 
     request.setCharacterEncoding("UTF-8");
 
