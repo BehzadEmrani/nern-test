@@ -30,6 +30,7 @@ public enum AdminAccessType {
     ADD_SUBJOB_TITLE("همکاری با شعا : اضافه کردن عنوان شغل"),
     SHOW_JOB_REQUEST("همکاری با شعا : مشاهده ی افراد"),
     TECH_ERROR_HANDLING(8000, "پشتیبانی : پیگیری خطاها"),
+    TECH_REDIRECT_TICKETING("پشتیبانی : بررسی تیکت ها"),
     SERVICES_ADD_SERVICE_FORM(9000, "خدمات : اضافه کردن سرویس فرم"),
     SERVICES_ADD_SERVICE_CATEGORY("خدمات : اضافه کردن دسته‌ی خدمات"),
     SERVICES_ADD_SERVICE("خدمات : اضافه کردن خدمت"),

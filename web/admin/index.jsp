@@ -451,11 +451,21 @@
                            href="#collapse9">پشتیبانی</a>
                     </h3>
                     <div id="collapse9" class="panel-collapse collapse">
-                        <a href="tech-manage-feed-back.jsp" target="iframe" style="margin-bottom: 10px"
-                           class="active sub"
-                           onclick="itemSelected('tech-manage-feed-back.jsp')">
-                            پیگیری خطاها
-                        </a>
+                        <% if (adminAccessTypes.contains(AdminAccessType.TECH_ERROR_HANDLING)) {
+                        %>
+                            <a href="tech-manage-feed-back.jsp" target="iframe" style="margin-bottom: 10px"
+                               class="active sub"
+                               onclick="itemSelected('tech-manage-feed-back.jsp')">
+                                پیگیری خطاها
+                            </a>
+                        <%} if (adminAccessTypes.contains(AdminAccessType.TECH_REDIRECT_TICKETING)) {
+                        %>
+                            <a href="redirect-to-NC.jsp" target="iframe" style="margin-bottom: 10px"
+                               class="active sub"
+                               onclick="itemSelected('redirect-to-NC.jsp')">
+                                ثبت تیکت
+                            </a>
+                        <%}%>
                     </div>
                 </div>
                 <%
