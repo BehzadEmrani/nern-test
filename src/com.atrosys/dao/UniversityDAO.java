@@ -207,9 +207,9 @@ public class UniversityDAO {
         Session session = SessionUtil.getSession();
         List<QueryParameter> prList = new LinkedList<>();
         prList.add(new QueryParameter("u.uniSubSystemCode", String.valueOf(subCode), "="));
-        prList.add(new QueryParameter("u.typeVal", String.valueOf(typeVal), "="));
-        Query query = session.createQuery("select u.uniNationalId,u.uniName,u.typeVal,u.uniSubSystemCode ,max(l.timeStamp) as time,c.name,s.name from University u,UniStatusLog  l inner join City c on c.cityId=u.cityId inner join State s on s.stateId=u.stateId inner join ServiceFormRequest q on q.uniId = u.uniNationalId where u.uniNationalId = l.uniNationalId " +
+        Query query = session.createQuery("select u.uniNationalId,u.uniName,u.typeVal,u.uniSubSystemCode ,max(l.timeStamp) as time,c.name,s.name from University u,UniStatusLog  l inner join City c on c.cityId=u.cityId inner join State s on s.stateId=u.stateId where u.uniNationalId = l.uniNationalId " +
                 QueryBuilder.buildWhereQuery(prList, false) + " group by u.uniNationalId order by time desc");
+        query.setMaxResults(500);
         List list = query.getResultList();
         List<UniApiRecordInspectors> records = new ArrayList<>();
         int size = 0;
