@@ -47,6 +47,14 @@ public enum PreDataType {
         return null;
     }
 
+    public static  PreDataType formFaStr(String faStr) {
+        for (PreDataType preDataType : PreDataType.values()) {
+            if (preDataType.getFaStr().matches(faStr.trim()))
+                return  preDataType;
+        }
+        return null;
+    }
+
     private static class Counter {
         private static int nextValue = 0;
     }
