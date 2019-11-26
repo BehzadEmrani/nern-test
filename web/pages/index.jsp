@@ -629,6 +629,21 @@
                 </div>
                 <%}%>
 
+
+                <% if(uniSessionInfo.isSubSystemLoggedIn()) {%>
+
+                <div class="panel panel-default">
+                    <h3 class="panel-header-h">
+                        <a class="collapse-header"
+                           target="iframe"
+                           href="redirect-to-ticketing.jsp?sub-code=<%=subSystemCode.getValue()%>">
+                            ثبت درخواست پشتیبانی
+                        </a>
+                    </h3>
+                </div>
+
+                <%}%>
+
                 <% for (ServiceCategory serviceCategory : ServiceCategoryDAO.findAllCats()) {
                     boolean catHaveServiceForm = ServiceFormDAO.checkIfThereIsServiceFormForCat(serviceCategory.getId());
                 %>
