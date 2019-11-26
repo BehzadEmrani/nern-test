@@ -33,6 +33,12 @@
     PersonalInfo personalInfo = PersonalInfoDAO.findPersonalInfoByNationalId(agentId);
 
 
+    String redirectUrl = "http://185.79.99.245/new-crm/landing-page?";
+    redirectUrl = redirectUrl + "id=" + personalInfo.getNationalId();
+    redirectUrl = redirectUrl + "&fname=" + personalInfo.getFname();
+    redirectUrl = redirectUrl + "&lname=" + personalInfo.getLname();
+    redirectUrl = redirectUrl + "&type=" + "Customer";
+    redirectUrl = redirectUrl + "&email=" + agent.getSupportEmail();
     request.setCharacterEncoding("UTF-8");
 %>
 <!DOCTYPE html>
@@ -46,16 +52,14 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Expires" content="Sat, 01 Dec 2001 00:00:00 GMT">
+
+    <script>
+        window.parent.parent.location.href = "<%=redirectUrl%>"
+    </script>
+
 </head>
 <body>
-<script>
-    sessionStorage.setItem("PersonNational_ID","<%=personalInfo.getNationalId()%>");
-    sessionStorage.setItem("FirstName","<%=personalInfo.getFname()%>");
-    sessionStorage.setItem("LastName","<%=personalInfo.getLname()%>");
-    sessionStorage.setItem("UserType","Customer");
-    sessionStorage.setItem("Email","<%=agent.getSupportEmail()%>");
-    window.parent.parent.location.href = "http://localhost:4200/landing-page";
-</script>
+
 
 </body>
 </html>
