@@ -43,35 +43,47 @@
     Agent newAgent = AgentDAO.findAgentByNationalId(newInfo.getAgentNationalId());
     PersonalInfo newPerson = PersonalInfoDAO.findPersonalInfoByNationalId(newInfo.getAgentNationalId());
 
+    String msg= "";
 
-    newUni.setUniName(newInfo.getUniName());
-    newUni.setEcoCode(newInfo.getUniEcoCode());
-    newUni.setTopManagerName(newInfo.getUniTopManagerName());
-    newUni.setTopManagerPos(newInfo.getUniTopManagerPos());
-    newUni.setSignatoryName(newInfo.getUniSignatoryName());
-    newUni.setSignatoryPos(newInfo.getUniSignatoryPos());
-    newUni.setSignatoryNationalId(newInfo.getUniSignatoryNationalId());
-    newUni.setStateId(StateDAO.findIdByStateName(newInfo.getState()));
-    newUni.setCityId(CityDAO.findIdByCityName(newInfo.getCity()));
-    newUni.setAddress(newInfo.getUniAddress());
-    newUni.setPostalCode(newInfo.getUniPostalCode());
-    newUni.setTeleNo(newInfo.getUniTelNo());
-    newUni.setFaxNo(newInfo.getUniFaxNo());
-    newUni.setSiteAddress(newInfo.getUniWebsite());
-    newUni.setUniPublicEmail(newInfo.getUniEmail());
+    if (StateDAO.isStateNameNew(newInfo.getState())) {
+        msg="استان انتخاب شده پیدا نشد";
+    } else if (CityDAO.isCityNameNew(newInfo.getCity())) {
+        msg="شهر انتخاب شده پیدا نشد";
+    } else if (CityDAO.isCityInState(Long.valueOf(newInfo.getState()), Long.valueOf(newInfo.getState()))){
+        msg="در استان انتخاب شده شهری با این نام پیدا نشد";
+    } else {
+        newUni.setUniName(newInfo.getUniName());
+        newUni.setEcoCode(newInfo.getUniEcoCode());
+        newUni.setTopManagerName(newInfo.getUniTopManagerName());
+        newUni.setTopManagerPos(newInfo.getUniTopManagerPos());
+        newUni.setSignatoryName(newInfo.getUniSignatoryName());
+        newUni.setSignatoryPos(newInfo.getUniSignatoryPos());
+        newUni.setSignatoryNationalId(newInfo.getUniSignatoryNationalId());
+        newUni.setStateId(StateDAO.findIdByStateName(newInfo.getState()));
+        newUni.setCityId(CityDAO.findIdByCityName(newInfo.getCity()));
+        newUni.setAddress(newInfo.getUniAddress());
+        newUni.setPostalCode(newInfo.getUniPostalCode());
+        newUni.setTeleNo(newInfo.getUniTelNo());
+        newUni.setFaxNo(newInfo.getUniFaxNo());
+        newUni.setSiteAddress(newInfo.getUniWebsite());
+        newUni.setUniPublicEmail(newInfo.getUniEmail());
 
-    newPerson.setFname(newInfo.getAgentFname());
-    newPerson.setLname(newInfo.getAgentLname());
+        newPerson.setFname(newInfo.getAgentFname());
+        newPerson.setLname(newInfo.getAgentLname());
 
-    newAgent.setAgentPos(newInfo.getAgentPos());
-    newAgent.setTelNo(newInfo.getAgentTeleNo());
-    newAgent.setMobileNo(newInfo.getAgentMobileNo());
-    newAgent.setFaxNo(newInfo.getUniFaxNo());
+        newAgent.setAgentPos(newInfo.getAgentPos());
+        newAgent.setTelNo(newInfo.getAgentTeleNo());
+        newAgent.setMobileNo(newInfo.getAgentMobileNo());
+        newAgent.setFaxNo(newInfo.getUniFaxNo());
 
 
-    UniversityDAO.save(newUni);
-    PersonalInfoDAO.save(newPerson);
-//    AgentDAO.save(newAgent);
+        UniversityDAO.save(newUni);
+        PersonalInfoDAO.save(newPerson);
+        AgentDAO.save(newAgent);
+        msg="OK";
+    }
+
+
 //    long id = Long.valueOf(request.getParameter("id"));
 //    University university = UniversityDAO.findUniByUniNationalId(id);
 //    Agent agent = AgentDAO.findUniPrimaryAgentByUniId(id);
@@ -124,7 +136,7 @@
 //        myResponse.put("uniSubscriptionDate", Util.convertGregorianToJalali(university.getSubscriptionContractDate()));
 //    }
 
-    String json = new Gson().toJson("OK");
+    String json = new Gson().toJson(msg);
     response.setContentType("application/json");
     out.print(json);
     out.flush();
