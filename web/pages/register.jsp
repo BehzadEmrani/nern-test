@@ -448,7 +448,7 @@
                 %>
                 <label>شناسه دانشگاه :</label>
                 <%}%>
-                <input <%=!isErrorUploadEdit?"name=\"uni-national-id\" ":""%>maxlength="11"
+                <input <%=!isErrorUploadEdit?"name=\"uni-national-id\" ":""%>maxlength="16" minlength="11"
                        class="<%=formUploaded||waitForVerify||isErrorEdit||isErrorUploadEdit?"formInputDeactive ":"numberInput "%>formInput"
                        style="width: 170px;"
                        type="text" <%=formUploaded||waitForVerify||isErrorEdit||isErrorUploadEdit?"value=\""
