@@ -231,6 +231,49 @@ public class UniversityDAO {
         return records;
     }
 
+    public static List<UniApiRecord> filterApiResponse(int subCode, int typeVal) throws Exception {
+        Session session = SessionUtil.getSession();
+        List<QueryParameter> prList = new LinkedList<>();
+        prList.add(new QueryParameter("u.uniSubSystemCode", String.valueOf(subCode), "="));
+        Query query = session.createQuery("select u.uniNationalId, u.uniName, u.uniSubSystemCode, u.typeVal ,max(l.timeStamp) as time,c.name,s.name, u.uniStatus, u.uniSubStatus from University u,UniStatusLog  l inner join City c on c.cityId=u.cityId inner join State s on s.stateId=u.stateId where u.uniNationalId = l.uniNationalId " +
+                QueryBuilder.buildWhereQuery(prList, false) + " group by u.uniNationalId order by time desc");
+        query.setMaxResults(1000);
+        List list = query.getResultList();
+        List<UniApiRecord> records = new ArrayList<>();
+        int size = 0;
+        while (size < list.size()) {
+            Object[] sub = (Object[]) list.get(size);
+            UniApiRecord record = new UniApiRecord();
+            record.setUniNationalId((Long) sub[0]);
+            record.setUniName((String) sub[1]);
+            record.setUniSubCode((Integer) sub[2]);
+            if (record.getUniSubCode()==0) {
+                record.setUniType(UniversityType.fromValue((int) sub[3]).getFaStr());
+            }
+            else if (record.getUniSubCode()==1) {
+                record.setUniType(SeminaryType.fromValue((int) sub[3]).getFaStr());
+            } else if (record.getUniSubCode()==2) {
+                record.setUniType(ResearchCenterType.fromValue((int) sub[3]).getFaStr());
+            }
+
+            record.setUniLastEditTime(Util.convertTimeStampToJalali((Timestamp) sub[4]));
+            record.setCity((String) sub[5]);
+            record.setState((String) sub[6]);
+            record.setUniStatus(UniStatus.fromValue((int) sub[7]).getFaStr());
+            if (sub[8]!= null) {
+                record.setUniSubStatus(UniSubStatus.fromValue((int) sub[8]).getFaStr());
+            } else {
+                record.setUniSubStatus("-");
+            }
+
+            record.setUniSubscriptionTime(Util.convertTimeStampToJalali(UniStatusLogDAO.findRegisterTimeStampByUniNationalId((Long) sub[0])));
+
+            records.add(record);
+            size++;
+        }
+        return records;
+    }
+
     public static boolean filterMedUniversitiesInRangeHaveNextPage(int subCode, long uniNationalId, String uniName, String stateName,
                                                                    String cityName, int typeVal, int uniStatus, int startIndex, int count) throws Exception {
         return filterMedUniversitiesInRange(subCode, uniNationalId, uniName, stateName, cityName, typeVal, uniStatus, startIndex + count, count).size() != 0;
