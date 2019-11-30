@@ -1,8 +1,8 @@
+<%@ page import="com.atrosys.dao.AdminDAO"%>
 <%@ page import="com.atrosys.dao.AdminStateListRoleDAO"%>
 <%@ page import="com.atrosys.dao.UniversityDAO"%>
-<%@ page import="com.atrosys.entity.AdminStateListRole"%>
-<%@ page import="com.atrosys.model.SubSystemCode"%>
-<%@ page import="com.atrosys.model.UniApiRecord"%><%@ page import="com.google.gson.Gson"%><%@ page import="java.util.LinkedList"%><%@ page import="java.util.List"%>
+<%@ page import="com.atrosys.dao.UserRoleDAO"%>
+<%@ page import="com.atrosys.entity.Admin"%><%@ page import="com.atrosys.entity.AdminStateListRole"%><%@ page import="com.atrosys.model.SubSystemCode"%><%@ page import="com.atrosys.model.UniApiRecord"%><%@ page import="com.google.gson.Gson"%><%@ page import="java.util.LinkedList"%><%@ page import="java.util.List"%>
 <%@ page contentType="application/json;charset=UTF-8" language="java" %>
 <%
     response.setHeader("Pragma", "no-cache");
@@ -28,7 +28,8 @@
         }
     } else {
         long id = Long.parseLong(request.getParameter("id"));
-        List<AdminStateListRole> listRoles = AdminStateListRoleDAO.findAdminStateListRoleByAdminId(id);
+        Admin admin = AdminDAO.findAdminByRoleId(UserRoleDAO.findUserRolesByNationalId(id).get(0).getRoleId());
+        List<AdminStateListRole> listRoles = AdminStateListRoleDAO.findAdminStateListRoleByAdminId(admin.getId());
         for (AdminStateListRole stateRole: listRoles) {
             int subCode;
             if (subSystemCode == null) {
