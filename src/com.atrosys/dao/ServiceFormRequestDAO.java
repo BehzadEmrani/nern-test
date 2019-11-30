@@ -49,8 +49,10 @@ public class ServiceFormRequestDAO {
 
     public static List<ServiceFormRequest> filterServiceFormRequestByUniId(
             String uniName, String stateName, String cityName , String serviceId, String status) throws Exception {
-        Session session = SessionUtil.getSession();List<QueryParameter> prList = new LinkedList<>();
+        Session session = SessionUtil.getSession();
+        List<QueryParameter> prList = new LinkedList<>();
         prList.add(new QueryParameter("u.uniName", String.valueOf(uniName), "%"));
+        prList.add(new QueryParameter("u.active","true", "="));
         prList.add(new QueryParameter("s.name", stateName, "%"));
         prList.add(new QueryParameter("c.name", cityName, "%"));
         prList.add(new QueryParameter("subService.serviceId", serviceId, "="));

@@ -86,7 +86,7 @@ public class PersonalInfoDAO {
 
     public static PersonalInfo findPersonalInfoByUserNameAndPassword(String username, String password, UserRoleType userRoleType) throws Exception {
         Session session = SessionUtil.getSession();
-        Query query = session.createQuery("select u from PersonalInfo u where u.username= :username and u.password=:password");
+        Query query = session.createQuery("select u from PersonalInfo u where u.username= :username and u.password=:password and u.active=true");
         query.setParameter("username", username);
         query.setParameter("password", PersonalInfo.customHash(password));
         PersonalInfo personalInfo = (PersonalInfo) query.uniqueResult();

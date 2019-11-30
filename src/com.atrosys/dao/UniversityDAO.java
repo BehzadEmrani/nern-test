@@ -33,7 +33,7 @@ public class UniversityDAO {
     public static UniStatus findUniStatusByUniNationalId(long uniId) throws Exception {
         try {
             Session session = SessionUtil.getSession();
-            Query query = session.createQuery("select u.uniStatus from University u where u.uniNationalId= :uniId");
+            Query query = session.createQuery("select u.uniStatus from University u where u.uniNationalId= :uniId and u.active = true");
             query.setParameter("uniId", uniId);
             return UniStatus.fromValue((int) query.uniqueResult());
         } catch (Exception e) {
@@ -43,42 +43,42 @@ public class UniversityDAO {
 
     public static boolean checkUniIdIsNew(long uniId) throws Exception {
         Session session = SessionUtil.getSession();
-        Query query = session.createQuery("select u.uniNationalId from University u where u.uniNationalId= :uniId");
+        Query query = session.createQuery("select u.uniNationalId from University u where u.uniNationalId= :uniId and u.active = true");
         query.setParameter("uniId", uniId);
         return query.uniqueResult() == null;
     }
 
     public static List<University> findAllUnisBySubCode(int subVal) throws Exception {
         Session session = SessionUtil.getSession();
-        Query query = session.createQuery("select u from University u where u.uniSubSystemCode=:subVal");
+        Query query = session.createQuery("select u from University u where u.uniSubSystemCode=:subVal and u.active = true");
         query.setParameter("subVal", subVal);
         return (List<University>) query.getResultList();
     }
 
     public static byte[] findUniRequestFormByUniNationalId(long uniId) throws Exception {
         Session session = SessionUtil.getSession();
-        Query query = session.createQuery("select u.requestForm from University u where u.uniNationalId= :uniId");
+        Query query = session.createQuery("select u.requestForm from University u where u.uniNationalId= :uniId  and u.active = true");
         query.setParameter("uniId", uniId);
         return (byte[]) query.uniqueResult();
     }
 
     public static byte[] findUniSubsExampleFormByUniNationalId(long uniId) throws Exception {
         Session session = SessionUtil.getSession();
-        Query query = session.createQuery("select u.subscriptionExampleForm from University u where u.uniNationalId= :uniId");
+        Query query = session.createQuery("select u.subscriptionExampleForm from University u where u.uniNationalId= :uniId and u.active = true");
         query.setParameter("uniId", uniId);
         return (byte[]) query.uniqueResult();
     }
 
     public static byte[] findUniSubsFormByUniNationalId(long uniId) throws Exception {
         Session session = SessionUtil.getSession();
-        Query query = session.createQuery("select u.subscriptionForm from University u where u.uniNationalId= :uniId");
+        Query query = session.createQuery("select u.subscriptionForm from University u where u.uniNationalId= :uniId  and u.active = true");
         query.setParameter("uniId", uniId);
         return (byte[]) query.uniqueResult();
     }
 
     public static byte[] findUniSubSignedFormByUniNationalId(long uniId) throws Exception {
         Session session = SessionUtil.getSession();
-        Query query = session.createQuery("select u.subscriptionFormSigned from University u where u.uniNationalId= :uniId");
+        Query query = session.createQuery("select u.subscriptionFormSigned from University u where u.uniNationalId= :uniId  and u.active = true");
         query.setParameter("uniId", uniId);
         return (byte[]) query.uniqueResult();
     }
@@ -86,7 +86,7 @@ public class UniversityDAO {
     public static String findUniNameByUniNationalId(long uniId) throws Exception {
         try {
             Session session = SessionUtil.getSession();
-            Query query = session.createQuery("select u.uniName from University u where u.uniNationalId= :uniId");
+            Query query = session.createQuery("select u.uniName from University u  where u.uniNationalId= :uniId and u.active = true");
             query.setParameter("uniId", uniId);
             return (String) query.uniqueResult();
         } catch (Exception e) {
@@ -97,7 +97,7 @@ public class UniversityDAO {
     public static University findUniByUniNationalId(long uniId) throws Exception {
         try {
             Session session = SessionUtil.getSession();
-            Query query = session.createQuery("select u from University u where u.uniNationalId= :uniId");
+            Query query = session.createQuery("select u from University u  where u.uniNationalId= :uniId and u.active = true");
             query.setParameter("uniId", uniId);
             return (University) query.uniqueResult();
         } catch (Exception e) {
@@ -116,6 +116,7 @@ public class UniversityDAO {
         prList.add(new QueryParameter("u.uniSubSystemCode", String.valueOf(subCode), "="));
         prList.add(new QueryParameter("u.typeVal", String.valueOf(typeVal), "="));
         prList.add(new QueryParameter("u.uniStatus", String.valueOf(uniStatus), "="));
+        prList.add(new QueryParameter("u.active", "true", "="));
         Query query = session.createQuery("select u.uniNationalId,u.uniName,u.typeVal,u.uniStatus,u.uniSubStatus ,max(l.timeStamp) as time,c.name,s.name,u.uniSubSystemCode from University u,UniStatusLog  l inner join City c on c.cityId=u.cityId inner join State s on s.stateId=u.stateId where u.uniNationalId = l.uniNationalId " +
                 QueryBuilder.buildWhereQuery(prList, false) + " group by u.uniNationalId order by time desc");
         query.setFirstResult(startIndex);
@@ -157,6 +158,7 @@ public class UniversityDAO {
         prList.add(new QueryParameter("s.name", stateName, "%"));
         prList.add(new QueryParameter("c.name", cityName, "%"));
         prList.add(new QueryParameter("u.uniSubSystemCode", String.valueOf(subCode), "="));
+        prList.add(new QueryParameter("u.active", "true", "="));
         String otherClause = QueryBuilder.buildWhereQuery(prList, false);
         if (typeVal != -1) {
             otherClause += " and ";
@@ -207,6 +209,7 @@ public class UniversityDAO {
         Session session = SessionUtil.getSession();
         List<QueryParameter> prList = new LinkedList<>();
         prList.add(new QueryParameter("u.uniSubSystemCode", String.valueOf(subCode), "="));
+        prList.add(new QueryParameter("u.active", "true", "="));
         Query query = session.createQuery("select u.uniNationalId,u.uniName,u.typeVal,u.uniSubSystemCode ,max(l.timeStamp) as time,c.name,s.name from University u,UniStatusLog  l inner join City c on c.cityId=u.cityId inner join State s on s.stateId=u.stateId where u.uniNationalId = l.uniNationalId " +
                 QueryBuilder.buildWhereQuery(prList, false) + " group by u.uniNationalId order by time desc");
         query.setMaxResults(500);
@@ -235,6 +238,7 @@ public class UniversityDAO {
         Session session = SessionUtil.getSession();
         List<QueryParameter> prList = new LinkedList<>();
         prList.add(new QueryParameter("u.uniSubSystemCode", String.valueOf(subCode), "="));
+        prList.add(new QueryParameter("u.active", "true", "="));
         Query query = session.createQuery("select u.uniNationalId, u.uniName, u.uniSubSystemCode, u.typeVal ,max(l.timeStamp) as time,c.name,s.name, u.uniStatus, u.uniSubStatus from University u,UniStatusLog  l inner join City c on c.cityId=u.cityId inner join State s on s.stateId=u.stateId where u.uniNationalId = l.uniNationalId " +
                 QueryBuilder.buildWhereQuery(prList, false) + " group by u.uniNationalId order by time desc");
         query.setMaxResults(1000);
@@ -282,7 +286,7 @@ public class UniversityDAO {
     public static List<UniTableRecord> approvingUniversities(long uniId, int startIndex, int count) throws Exception {
         String statement = ApprovingRoleDAO.statementForFindUnis(uniId, false);
         Session session = SessionUtil.getSession();
-        Query query = session.createQuery("select u.uniNationalId,u.uniName,u.typeVal,u.uniStatus,u.uniSubStatus ,max(l.timeStamp) as time,c.name,s.name,u.uniSubSystemCode from University u,UniStatusLog  l inner join City c on c.cityId=u.cityId inner join State s on s.stateId=u.stateId where u.uniNationalId = l.uniNationalId and u.uniStatus=:uniStatus " + statement + "group by u.uniNationalId order by time desc");
+        Query query = session.createQuery("select u.uniNationalId,u.uniName,u.typeVal,u.uniStatus,u.uniSubStatus ,max(l.timeStamp) as time,c.name,s.name,u.uniSubSystemCode from University u,UniStatusLog  l inner join City c on c.cityId=u.cityId inner join State s on s.stateId=u.stateId where u.uniNationalId = l.uniNationalId and u.uniStatus=:uniStatus and u.active=true " + statement + "group by u.uniNationalId order by time desc");
         query.setParameter("uniStatus", UniStatus.REGISTER_PAGE_VERIFY.getValue());
         query.setFirstResult(startIndex);
         query.setMaxResults(count);
@@ -312,7 +316,7 @@ public class UniversityDAO {
     public static boolean doesUniHaveAccessToApproveUni(long approvingUniId, long uniId) throws Exception {
         String statement = ApprovingRoleDAO.statementForFindUnis(approvingUniId, false);
         Session session = SessionUtil.getSession();
-        Query query = session.createQuery("select count(*) from University au where au.uniNationalId=:uniId and (au) in (select u from University u where u.uniStatus=:uniStatus " + statement + "group by u.uniNationalId)");
+        Query query = session.createQuery("select count(*) from University au where au.uniNationalId=:uniId and au.active=true and (au) in (select u from University u where u.uniStatus=:uniStatus " + statement + "group by u.uniNationalId)");
         query.setParameter("uniStatus", UniStatus.REGISTER_PAGE_VERIFY.getValue());
         query.setParameter("uniId", uniId);
         return (long) query.uniqueResult() > 0;
@@ -321,7 +325,7 @@ public class UniversityDAO {
     public static boolean checkIfHaveAccessToUni(long roleId, long uniNationalId) throws Exception {
         String statement = ApprovingRoleDAO.statementForFindUnis(roleId, false);
         Session session = SessionUtil.getSession();
-        Query query = session.createQuery("select count(*) from University u where u.uniNationalId = :uniNationalId " + statement);
+        Query query = session.createQuery("select count(*) from University u where u.uniNationalId = :uniNationalId and u.active=true " + statement);
         query.setParameter("uniNationalId", uniNationalId);
         return (long) query.uniqueResult() > 0;
     }
@@ -332,7 +336,7 @@ public class UniversityDAO {
 
     public static List<UniTableRecord> majorApprovingUnisList(int subCode, int startIndex, int count) throws Exception {
         Session session = SessionUtil.getSession();
-        Query query = session.createQuery("select u.uniNationalId,u.uniName,u.typeVal,u.uniStatus,u.uniSubStatus ,max(l.timeStamp) as time,c.name,s.name,u.uniSubSystemCode from University u,UniStatusLog  l inner join City c on c.cityId=u.cityId inner join State s on s.stateId=u.stateId where u.uniNationalId = l.uniNationalId and u.uniStatus=:uniStatus and u.uniSubSystemCode=:uniSubSystemCode group by u.uniNationalId order by time desc");
+        Query query = session.createQuery("select u.uniNationalId,u.uniName,u.typeVal,u.uniStatus,u.uniSubStatus ,max(l.timeStamp) as time,c.name,s.name,u.uniSubSystemCode from University u,UniStatusLog  l inner join City c on c.cityId=u.cityId inner join State s on s.stateId=u.stateId where u.uniNationalId = l.uniNationalId and u.uniStatus=:uniStatus and u.uniSubSystemCode=:uniSubSystemCode and u.active=true group by u.uniNationalId order by time desc");
         query.setParameter("uniStatus", UniStatus.REGISTER_SECOND_RELATED_ORGAN.getValue());
         query.setParameter("uniSubSystemCode", subCode);
         query.setFirstResult(startIndex);
@@ -366,7 +370,7 @@ public class UniversityDAO {
 
     public static List<UniTableRecord>stateAdminUnisList(int subCode,Long stateId, int startIndex, int count) throws Exception {
         Session session = SessionUtil.getSession();
-        Query query = session.createQuery("select u.uniNationalId,u.uniName,u.typeVal,u.uniStatus,u.uniSubStatus ,max(l.timeStamp) as time,c.name,s.name,u.uniSubSystemCode from University u,UniStatusLog  l inner join City c on c.cityId=u.cityId inner join State s on s.stateId=u.stateId where u.uniNationalId = l.uniNationalId and u.stateId=:stateId group by u.uniNationalId order by time desc");
+        Query query = session.createQuery("select u.uniNationalId,u.uniName,u.typeVal,u.uniStatus,u.uniSubStatus ,max(l.timeStamp) as time,c.name,s.name,u.uniSubSystemCode from University u,UniStatusLog  l inner join City c on c.cityId=u.cityId inner join State s on s.stateId=u.stateId where u.uniNationalId = l.uniNationalId and u.stateId=:stateId and u.active=true group by u.uniNationalId order by time desc");
         query.setParameter("stateId", stateId);
         query.setFirstResult(startIndex);
         query.setMaxResults(count);
@@ -403,6 +407,7 @@ public class UniversityDAO {
         criteria.setProjection(Projections.rowCount());
         criteria.add(Restrictions.eq("typeVal", typeVal));
         criteria.add(Restrictions.eq("uniSubSystemCode", subCode));
+        criteria.add(Restrictions.eq("active", true));
         return (long) criteria.uniqueResult();
     }
 
@@ -414,6 +419,7 @@ public class UniversityDAO {
         criteria.add(Restrictions.eq("typeVal", typeVal));
         criteria.add(Restrictions.eq("uniSubSystemCode", subCode));
         criteria.add(Restrictions.between("uniStatus", sRange, eRange - 1));
+        criteria.add(Restrictions.eq("active", true));
         return (long) criteria.uniqueResult();
     }
 
@@ -424,6 +430,7 @@ public class UniversityDAO {
         criteria.add(Restrictions.eq("typeVal", typeVal));
         criteria.add(Restrictions.eq("uniSubSystemCode", subCode));
         criteria.add(Restrictions.eq("uniStatus", state));
+        criteria.add(Restrictions.eq("active", true));
         return (long) criteria.uniqueResult();
     }
 
@@ -435,6 +442,7 @@ public class UniversityDAO {
         Criteria criteria = session.createCriteria(University.class);
         criteria.setProjection(Projections.rowCount());
         criteria.add(Restrictions.eq("uniSubSystemCode", subSystem));
+        criteria.add(Restrictions.eq("active", true));
         return (long) criteria.uniqueResult();
     }
 

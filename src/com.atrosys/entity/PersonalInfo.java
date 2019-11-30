@@ -28,6 +28,7 @@ public class PersonalInfo {
     private Date birthDate;
     private Boolean needChangePass;
     private Boolean legalPersonality;
+    private Boolean active;
 
 
     public String combineName() {
@@ -151,6 +152,15 @@ public class PersonalInfo {
 
     public void setLegalPersonality(Boolean legalPersonality) {
         this.legalPersonality = legalPersonality;
+    }
+
+    @Column(name = "active")
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     private static String sha1Hash(String str) throws NoSuchAlgorithmException, UnsupportedEncodingException {

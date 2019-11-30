@@ -45,6 +45,7 @@ public class University {
     private byte[] cancellForm;
     private byte[] reasonCancellForm;
     private byte[] confirmCancellForm;
+    private boolean active;
 
     @Id
     @Column(name = "uni_national_id")
@@ -399,5 +400,14 @@ public class University {
 
     public void setSubscriptionContractDate(Date subscriptionContractDate) {
         this.subscriptionContractDate = subscriptionContractDate;
+    }
+
+    @Column(name = "active")
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
