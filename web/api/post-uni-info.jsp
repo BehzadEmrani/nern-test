@@ -49,7 +49,7 @@
         msg="استان انتخاب شده پیدا نشد";
     } else if (CityDAO.isCityNameNew(newInfo.getCity())) {
         msg="شهر انتخاب شده پیدا نشد";
-    } else if (CityDAO.isCityInState(StateDAO.findIdByStateName(newInfo.getState()), CityDAO.findIdByCityName(newInfo.getCity()))){
+    } else if (!CityDAO.isCityInState(StateDAO.findIdByStateName(newInfo.getState()), CityDAO.findIdByCityName(newInfo.getCity()))){
         msg="در استان انتخاب شده شهری با این نام پیدا نشد";
     } else {
         newUni.setUniName(newInfo.getUniName());
