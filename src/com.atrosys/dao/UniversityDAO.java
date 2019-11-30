@@ -234,11 +234,19 @@ public class UniversityDAO {
         return records;
     }
 
-    public static List<UniApiRecord> filterApiResponse(int subCode, int typeVal) throws Exception {
+    public static List<UniApiRecord> filterApiResponse(int subCode, int typeVal, Long stateId) throws Exception {
         Session session = SessionUtil.getSession();
         List<QueryParameter> prList = new LinkedList<>();
-        prList.add(new QueryParameter("u.uniSubSystemCode", String.valueOf(subCode), "="));
+
         prList.add(new QueryParameter("u.active", "true", "="));
+
+        if (stateId!=-1) {
+            prList.add(new QueryParameter("s.id", String.valueOf(stateId), "="));
+        }
+        if (subCode!=-1) {
+            prList.add(new QueryParameter("u.uniSubSystemCode", String.valueOf(subCode), "="));
+        }
+
         Query query = session.createQuery("select u.uniNationalId, u.uniName, u.uniSubSystemCode, u.typeVal ,max(l.timeStamp) as time,c.name,s.name, u.uniStatus, u.uniSubStatus from University u,UniStatusLog  l inner join City c on c.cityId=u.cityId inner join State s on s.stateId=u.stateId where u.uniNationalId = l.uniNationalId " +
                 QueryBuilder.buildWhereQuery(prList, false) + " group by u.uniNationalId order by time desc");
         query.setMaxResults(1000);
