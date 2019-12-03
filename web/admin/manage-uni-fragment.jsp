@@ -49,6 +49,13 @@
             }
             canNotEdit = !AdminDAO.checkAdminSubAccess(admin.getId(), AdminAccessType.HOSPITALS.getValue(), AdminSubAccessType.EDIT.getValue());
             break;
+        case SEMINARY:
+            if (!AdminDAO.checkAdminAccess(session, admin.getId(), AdminAccessType.SEMINARY.getValue())) {
+                response.sendError(403);
+                return;
+            }
+            canNotEdit = !AdminDAO.checkAdminSubAccess(admin.getId(), AdminAccessType.SEMINARY.getValue(), AdminSubAccessType.EDIT.getValue());
+            break;
     }
 
     request.setCharacterEncoding("UTF-8");
