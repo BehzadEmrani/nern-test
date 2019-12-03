@@ -69,8 +69,6 @@
         if (isEdit || isSendEdit || isSendNew || isSendDelete) {
             if (isSendNew) {
                 targetAdmin = AdminDAO.findAdminByid(Long.valueOf(request.getParameter("admin-id")));
-                if(!AdminStateListRoleDAO.findAdminStateListRoleByAdminId(targetAdmin.getId()).isEmpty())
-                    throw new Exception("repeated-list-role");
                 targetAdminStateListRole = new AdminStateListRole();
             } else if (isEdit || isSendEdit || isSendDelete) {
                 targetAdminStateListRole = AdminStateListRoleDAO.findAdminStateListRoleByid(Long.valueOf(request.getParameter("id")));

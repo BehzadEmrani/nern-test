@@ -16,7 +16,7 @@ public class AdminStateListRoleDAO {
 
     public static List<AdminStateListRole> findAllAdminStateListRoles() throws Exception {
         Session session = SessionUtil.getSession();
-        Query query = session.createQuery("select u from AdminStateListRole u");
+        Query query = session.createQuery("select u from AdminStateListRole u order by u.adminId");
         return (List<AdminStateListRole>) query.getResultList();
     }
 
