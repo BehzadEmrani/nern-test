@@ -1,12 +1,12 @@
 <%@ page import="com.atrosys.dao.AdminDAO" %>
-<%@ page import="com.atrosys.entity.Admin" %>
-<%@ page import="com.atrosys.model.*" %>
-<%@ page import="com.atrosys.entity.Service" %>
 <%@ page import="com.atrosys.dao.ServiceDAO" %>
-<%@ page import="com.atrosys.dao.UniversityDAO" %>
-<%@ page import="static com.atrosys.dao.UniversityDAO.findUniStatusByUniNationalId" %>
-<%@ page import="static com.atrosys.dao.UniversityDAO.findUniStatusByUniNationalId" %>
 <%@ page import="com.atrosys.dao.ServiceFormRequestDAO" %>
+<%@ page import="com.atrosys.entity.Admin" %>
+<%@ page import="com.atrosys.entity.Service" %>
+<%@ page import="com.atrosys.entity.ServiceFormRequest" %>
+<%@ page import="static com.atrosys.dao.UniversityDAO.findUniStatusByUniNationalId" %>
+<%@ page import="static com.atrosys.dao.UniversityDAO.findUniStatusByUniNationalId" %>
+<%@ page import="com.atrosys.model.*" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 
 <%
@@ -24,8 +24,40 @@
         return;
     }
 
+    boolean addSubAccess = false;
+    boolean readSubAccess = false;
+    boolean removeSubAccess = false;
+    boolean editSubAccess = false;
+
+    if (!AdminDAO.checkAdminAccess(session, admin.getId(), AdminAccessType.SEE_REQUESTED_SERVICE_FORMS.getValue())) {
+        response.sendError(403);
+        return;
+    } else {
+        addSubAccess = AdminDAO.checkAdminSubAccess(admin.getId(),
+                AdminAccessType.SEE_REQUESTED_SERVICE_FORMS.getValue(),
+                AdminSubAccessType.ADD.getValue());
+        readSubAccess = AdminDAO.checkAdminSubAccess(admin.getId(),
+                AdminAccessType.SEE_REQUESTED_SERVICE_FORMS.getValue(),
+                AdminSubAccessType.READ.getValue());
+        removeSubAccess = AdminDAO.checkAdminSubAccess(admin.getId(),
+                AdminAccessType.SEE_REQUESTED_SERVICE_FORMS.getValue(),
+                AdminSubAccessType.DELETE.getValue());
+        editSubAccess = AdminDAO.checkAdminSubAccess(admin.getId(),
+                AdminAccessType.SEE_REQUESTED_SERVICE_FORMS.getValue(),
+                AdminSubAccessType.EDIT.getValue());
+    }
 
 
+
+    if ("remove".equals(request.getParameter("action"))) {
+        if (!removeSubAccess) {
+            response.sendError(403);
+            return;
+        }
+        ServiceFormRequest changingServiceFormRequest = ServiceFormRequestDAO.findServiceFormRequestById(Long.valueOf(request.getParameter("id")));
+        if (changingServiceFormRequest.getStatusVal() < ServiceFormRequestStatus.WAIT_FOR_SHOA_SIGNING.getValue())
+            ServiceFormRequestDAO.delete(Long.valueOf(request.getParameter("id")));
+    }
 
     request.setCharacterEncoding("UTF-8");
     String message = null;

@@ -300,7 +300,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">خیر</button>
-                            <a href="requested-service-form.jsp?<%=!isAdminPage?"sub-code="+( subSystemCode != null ? subSystemCode.getValue() : null)+"&":""%>action=remove&id=<%=serviceFormRequestTable.getId()%>"
+                            <a href="request-service-form.jsp?<%=!isAdminPage?"sub-code="+( subSystemCode != null ? subSystemCode.getValue() : null)+"&":""%>action=remove&id=<%=serviceFormRequestTable.getId()%>"
                                style="float: left;" class="btn btn-default">بله</a>
                         </div>
                     </div>

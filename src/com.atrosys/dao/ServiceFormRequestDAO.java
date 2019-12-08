@@ -19,14 +19,14 @@ import java.util.List;
 public class ServiceFormRequestDAO {
     public static List<ServiceFormRequest> findAllServiceFormRequests() throws Exception {
         Session session = SessionUtil.getSession();
-        Query query = session.createQuery("from ServiceFormRequest");
+        Query query = session.createQuery("from ServiceFormRequest s where  s.active=true");
         return (List<ServiceFormRequest>) query.getResultList();
     }
 
 
     public static ServiceFormRequest findServiceFormRequestById(long id) throws Exception {
         Session session = SessionUtil.getSession();
-        Query query = session.createQuery("select c from ServiceFormRequest c where c.id=:id");
+        Query query = session.createQuery("select c from ServiceFormRequest c where c.id=:id and c.active=true");
         query.setParameter("id", id);
         return (ServiceFormRequest) query.uniqueResult();
     }
@@ -34,7 +34,7 @@ public class ServiceFormRequestDAO {
     public static List<ServiceFormRequest> findServiceFormRequestByUniId(
             long uniId) throws Exception {
         Session session = SessionUtil.getSession();
-        Query query = session.createQuery("select c from ServiceFormRequest c where c.uniId=:uniId");
+        Query query = session.createQuery("select c from ServiceFormRequest c where c.uniId=:uniId and c.active=true");
         query.setParameter("uniId", uniId);
         return (List<ServiceFormRequest>) query.getResultList();
     }
@@ -42,7 +42,7 @@ public class ServiceFormRequestDAO {
     public static Integer findServiceFormRequestCountByUniId(
             long uniId) throws Exception {
         Session session = SessionUtil.getSession();
-        Query query = session.createQuery("select c.id from ServiceFormRequest c where c.uniId=:uniId");
+        Query query = session.createQuery("select c.id from ServiceFormRequest c where c.uniId=:uniId and c.active=true");
         query.setParameter("uniId", uniId);
         return query.getResultList().size();
     }
@@ -57,6 +57,7 @@ public class ServiceFormRequestDAO {
         prList.add(new QueryParameter("c.name", cityName, "%"));
         prList.add(new QueryParameter("subService.serviceId", serviceId, "="));
         prList.add(new QueryParameter("r.statusVal", status, "="));
+        prList.add(new QueryParameter("r.active", "true", "="));
 
 
         Query query = session.createQuery("select r from ServiceFormRequest r inner join University u on r.uniId=u.uniNationalId inner join City c on u.cityId = c.cityId inner join State s on s.stateId=u.stateId " +
@@ -69,7 +70,8 @@ public class ServiceFormRequestDAO {
     public static void delete(long id) throws Exception {
         ServiceFormRequest serviceFormRequest = new ServiceFormRequest();
         serviceFormRequest.setId(id);
-        new HibernateUtil().delete(serviceFormRequest);
+        serviceFormRequest.setActive(false);
+        save(serviceFormRequest);
     }
 
     public static ServiceFormRequest save(ServiceFormRequest serviceFormRequest) throws Exception {

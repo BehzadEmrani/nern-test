@@ -19,6 +19,7 @@ public class ServiceFormRequest {
     private byte[] finalSignedForm;
     private byte[] letter;
     private byte[] postReceipt;
+    private boolean active;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -143,5 +144,8 @@ public class ServiceFormRequest {
         this.statusVal = statusVal;
     }
 
+    @Column (name= "active")
+    public boolean isActive() {return active;}
 
+    public void setActive(boolean active) {this.active = active;}
 }
