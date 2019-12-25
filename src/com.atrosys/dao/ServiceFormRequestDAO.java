@@ -3,8 +3,8 @@ package com.atrosys.dao;
 
 import com.atrosys.entity.ServiceForm;
 import com.atrosys.entity.ServiceFormRequest;
-import com.atrosys.model.ServiceFormReqestModel;
 import com.atrosys.model.ServiceFormRequestDocType;
+import com.atrosys.model.ServiceFormRequestModel;
 import com.atrosys.model.ServiceFormRequestStatus;
 import com.atrosys.util.*;
 import org.hibernate.Session;
@@ -50,17 +50,17 @@ public class ServiceFormRequestDAO {
         return !list.isEmpty();
     }
 
-    public static List<ServiceFormReqestModel> findAllServiceFormRequestModels() throws Exception {
+    public static List<ServiceFormRequestModel> findAllServiceFormRequestModels() throws Exception {
         Session session = SessionUtil.getSession();
         Query query = session.createQuery("select s.id, u.uniName, sf, s.statusVal, s.serviceFormContractNo, s.subscriptionDate from ServiceFormRequest s inner join University u on s.uniId=u.id " +
                 "inner join ServiceFormParameter sfp on s.serviceFormParameterId=sfp.id inner join ServiceForm sf on sfp.serviceFormId=sf.id where s.active=true and u.active=true");
 
         List list = query.getResultList();
-        List<ServiceFormReqestModel> result = new LinkedList<>();
+        List<ServiceFormRequestModel> result = new LinkedList<>();
 
         for (int i=0; i<list.size(); i++) {
             Object[] sub = (Object[]) list.get(i);
-            ServiceFormReqestModel model = new ServiceFormReqestModel();
+            ServiceFormRequestModel model = new ServiceFormRequestModel();
             ServiceForm serviceForm = new ServiceForm();
 
             model.setId((Long) sub[0]);
@@ -85,6 +85,7 @@ public class ServiceFormRequestDAO {
             model.setFinalSignedForm(findServiceFormRequestObjectsNotEmpty(ServiceFormRequestDocType.FINAL_SIGNED_FORM.getValue(),(Long) sub[0]));
             model.setLetter(findServiceFormRequestObjectsNotEmpty(ServiceFormRequestDocType.LETTER.getValue(),(Long) sub[0]));
             model.setPostReceipt(findServiceFormRequestObjectsNotEmpty(ServiceFormRequestDocType.POST_RECEIPT.getValue(),(Long) sub[0]));
+            model.setCanUpload(((int) sub[3])>=ServiceFormRequestStatus.WAIT_FOR_SHOA_SIGNING.getValue());
             result.add(model);
         }
 

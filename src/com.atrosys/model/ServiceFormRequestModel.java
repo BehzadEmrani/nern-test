@@ -1,6 +1,6 @@
 package com.atrosys.model;
 
-public class ServiceFormReqestModel {
+public class ServiceFormRequestModel {
     private Long id;
     private String uniName;
     private String title;
@@ -12,7 +12,7 @@ public class ServiceFormReqestModel {
     private boolean finalSignedForm;
     private boolean letter;
     private boolean postReceipt;
-
+    private boolean canUpload;
 
     public Long getId() {
         return id;
@@ -100,5 +100,13 @@ public class ServiceFormReqestModel {
 
     public void setPostReceipt(boolean postReceipt) {
         this.postReceipt = postReceipt;
+    }
+
+    public boolean isCanUpload() {
+        return canUpload;
+    }
+
+    public void setCanUpload(boolean canUpload) {
+        this.canUpload = canUpload;
     }
 }

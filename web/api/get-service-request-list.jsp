@@ -1,5 +1,5 @@
 <%@ page import="com.atrosys.dao.ServiceFormRequestDAO"%>
-<%@ page import="com.atrosys.model.ServiceFormReqestModel"%>
+<%@ page import="com.atrosys.model.ServiceFormRequestModel"%>
 <%@ page import="com.google.gson.Gson"%>
 <%@ page import="java.util.List"%>
 
@@ -14,9 +14,9 @@
     request.setCharacterEncoding("UTF-8");
 
 
-    List<ServiceFormReqestModel> reqestModels = ServiceFormRequestDAO.findAllServiceFormRequestModels();
+    List<ServiceFormRequestModel> requestModels = ServiceFormRequestDAO.findAllServiceFormRequestModels();
 
-    String json = new Gson().toJson(reqestModels);
+    String json = new Gson().toJson(requestModels);
     response.setContentType("application/json");
     out.print(json);
     out.flush();
