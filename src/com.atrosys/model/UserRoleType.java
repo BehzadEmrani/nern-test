@@ -1,5 +1,9 @@
 package com.atrosys.model;
 
+/**
+ * User type in system.
+ */
+
 public enum UserRoleType {
     UNIVERSITY(1000, "دانشگاه ها و مراکز آموزش عالی",
             "SESSION_UNIVERSITY_USER_ROLE_ID",

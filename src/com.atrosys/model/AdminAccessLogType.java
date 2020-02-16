@@ -1,5 +1,9 @@
 package com.atrosys.model;
 
+/**
+ * Types of log for admin
+ */
+
 public enum AdminAccessLogType {
     ADMIN_LOGED_IN(1000,"ورود به بخش مدیریت سایت"),
     ADMIN_LOGED_OUT("خروج از بخش مدیریت سایت"),

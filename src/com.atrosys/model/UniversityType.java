@@ -1,5 +1,9 @@
 package com.atrosys.model;
 
+/**
+ * University customers types.
+ */
+
 public enum UniversityType implements SubSystemsType {
     GOV_UNIVERSITY(0, "دانشگاه‌های دولتی مورد تایید وزارت علوم,تحقیقات و فناوری", true, PreDataType.FROM_ILENC),
     MEDICAL_UNIVERSITY("دانشگاه‌های دولتی مورد تایید وزارت بهداشت و درمان و آموزش پزشکی", true, PreDataType.FROM_ILENC),

@@ -1,5 +1,9 @@
 package com.atrosys.model;
 
+/**
+ * Seminary customers type.
+ */
+
 public enum SeminaryType implements SubSystemsType {
     SEMINARY_GHOM_APPROVED(0, "حوزه‌های علمیه مورد تایید مرکز مدیریت حوزه‌های علمیه قم", true, PreDataType.FROM_ILENC),
     SEMINARY_KHAHARAN_APPROVED( "حوزه‌های علمیه مورد تایید مرکز مدیریت حوزه‌های علمیه خواهران", true, PreDataType.FROM_ILENC),

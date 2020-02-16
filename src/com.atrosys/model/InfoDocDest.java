@@ -1,5 +1,9 @@
 package com.atrosys.model;
 
+/**
+ * Index page info sections main titles
+ */
+
 public enum InfoDocDest {
     INFO_DOCS(0, "info","شبکه علمی چیست؟"),
     ABOUT_DOCS(1, "about","درباره ما");

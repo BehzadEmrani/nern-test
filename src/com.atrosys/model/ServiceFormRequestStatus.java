@@ -1,5 +1,9 @@
 package com.atrosys.model;
 
+/**
+ * Service form signing stage.
+ */
+
 public enum ServiceFormRequestStatus {
     WAIT_FOR_SUBS_SIGNING(1000, "امضا توسط مشترک"),
     WAIT_FOR_SHOA_SIGNING(2000, "امضا توسط اپراتور"),

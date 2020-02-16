@@ -1,5 +1,8 @@
 package com.atrosys.model;
 
+/**
+ * POJO class for customer errors field APIs.
+ */
 
 public class UniSubStatusResponse {
     int value;

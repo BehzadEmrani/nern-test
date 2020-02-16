@@ -15,7 +15,10 @@ import java.util.HashMap;
 
 /**
  * Created by mehdisabermahani on 6/15/17.
+ * Data which relate to every cookie,
+ * states which customer is using this cookie.
  */
+
 public class UniSessionInfo {
     private UserRole userRole;
     private Agent agent;

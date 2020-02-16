@@ -2,7 +2,9 @@ package com.atrosys.model;
 
 /**
  * Created by met on 12/14/17.
+ * Equipments power source type.
  */
+
 public enum EquipmentElectronicSource {
     AC(1000, "منبع مستقیم", "AC"),
     DC(2000,"منبع متناوب", "DC");

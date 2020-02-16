@@ -1,5 +1,10 @@
 package com.atrosys.model;
 
+/**
+ * News section titles,
+ * pages was deprecated.
+ */
+
 public enum NewsDest {
     ABOUT_MEDIA(0, "media","در آیینه ی دیگر رسانه ها"),
     ABOUT_OPERATOR(10, "operator","استودیو شعا");

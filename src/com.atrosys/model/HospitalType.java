@@ -1,5 +1,9 @@
 package com.atrosys.model;
 
+/**
+ * Types of medical universities
+ */
+
 public enum HospitalType implements SubSystemsType {
     MEDICAL_GOV(0, "مراکز آموزشی و درمانی دولتی", true, PreDataType.FROM_ILENC),
     MEDICAL_NON_GOV( "مراکز آموزشی و درمانی غیردولتی", true, PreDataType.FROM_ILENC);

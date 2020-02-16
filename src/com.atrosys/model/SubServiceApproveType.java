@@ -1,5 +1,9 @@
 package com.atrosys.model;
 
+/**
+ * Service form composer types.
+ */
+
 public enum SubServiceApproveType {
     REGULATORY(1,"کمیسیون تنظیم مقررات"),
     BOARD("هیأت مدیره اپراتور");

@@ -1,5 +1,10 @@
 package com.atrosys.model;
 
+/**
+ * Admin feedback type,
+ * feedback page was deprecated.
+ */
+
 public enum FeedBackStatus {
     WORKING_ON(1000,"در حال برطرف کردن مشکل"),
     CORRECTED(2000,"مشکل برطرف شده");

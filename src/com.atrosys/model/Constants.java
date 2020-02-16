@@ -4,6 +4,10 @@ import com.atrosys.util.OSValidator;
 
 import javax.swing.filechooser.FileSystemView;
 
+/**
+ * Project level constants and settings.
+ */
+
 public class Constants {
     public static final boolean IS_UNIVERCITY_SECTION_ACTIVE = true;
     //    public static final String WEB_APP_ROOT = "/Test/";

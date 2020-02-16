@@ -1,5 +1,9 @@
 package com.atrosys.model;
 
+/**
+ * type of customer error.
+ */
+
 public enum UniErrors {
     REGISTER_PAGE_NATIONAL_CODE_ERRPOR(0, "خطا در شناسه ملی"),
     REGISTER_PAGE_VERIFY("انتظار برای تایید درخواست عضویت"),

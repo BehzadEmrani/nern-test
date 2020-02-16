@@ -1,5 +1,9 @@
 package com.atrosys.model;
 
+/**
+ * Types of permissions for admins
+ */
+
 public enum AdminAccessType {
     ADMINS_REGISTER(1000, "مدیران سایت : عضویت"),
     ADMINS_REPORT("مدیران سایت : گزارش کارکرد"),

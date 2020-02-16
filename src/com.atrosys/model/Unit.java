@@ -2,7 +2,9 @@ package com.atrosys.model;
 
 /**
  * Created by met on 12/14/17.
+ * measure units mostly used in service contract.
  */
+
 public enum Unit {
     TIME_H(1000, "ساعت", "h"),
     TIME_M("دقیقه", "m"),

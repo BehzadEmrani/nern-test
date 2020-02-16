@@ -2,7 +2,9 @@ package com.atrosys.model;
 
 /**
  * Created by met on 12/14/17.
+ * Service form contracts pay period.
  */
+
 public enum PayPeriod {
     MONTH_01(1, "یک ماهه", "01"),
     MONTH_03(3, "سه ماهه", "03"),

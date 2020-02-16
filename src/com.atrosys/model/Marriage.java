@@ -1,5 +1,10 @@
 package com.atrosys.model;
 
+/**
+ * Martial Status
+ * never used.
+ */
+
 public enum Marriage {
     SINGLE(0, "مجرد"),
     MARRIED("متاهل");;

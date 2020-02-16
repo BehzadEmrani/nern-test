@@ -5,7 +5,9 @@ import com.atrosys.entity.University;
 
 /**
  * Created by met on 2/3/18.
+ * POJO class which contain data of contract table row.
  */
+
 public class ServiceContractTableRecord {
     ServiceFormRequest serviceFormRequest;
     University subUni;

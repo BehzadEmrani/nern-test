@@ -6,7 +6,9 @@ import java.sql.Timestamp;
 
 /**
  * Created by met on 2/3/18.
+ * POJO class for Customers table row data.
  */
+
 public class UniTableRecord {
     private University university;
     private Timestamp lastLogTimeStamp;

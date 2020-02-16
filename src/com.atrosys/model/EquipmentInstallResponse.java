@@ -2,7 +2,9 @@ package com.atrosys.model;
 
 /**
  * Created by mehdisabermahani on 7/28/17.
+ * POJO class for getting installed equipment info from APIs.
  */
+
 public class EquipmentInstallResponse {
     private Long equipmentId;
     private Long equipmentTypeId;

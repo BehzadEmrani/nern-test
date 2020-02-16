@@ -13,7 +13,10 @@ import java.util.HashMap;
 
 /**
  * Created by mehdisabermahani on 6/15/17.
+ * Data which relate to every cookie,
+ * states which admin is using this cookie.
  */
+
 public class AdminSessionInfo {
     private UserRole userRole;
     private Admin admin;

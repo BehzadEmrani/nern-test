@@ -2,7 +2,9 @@ package com.atrosys.model;
 
 /**
  * Created by mehdisabermahani on 7/28/17.
+ * POJO class for Telecom centers APIs.
  */
+
 public class TelecomResponse {
     private Long id;
     private String name;

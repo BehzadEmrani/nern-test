@@ -1,5 +1,9 @@
 package com.atrosys.model;
 
+/**
+ * Sub type of permissions
+ */
+
 public enum AdminSubAccessType {
     READ(0, "مشاهده"),
     ADD("افزودن"),

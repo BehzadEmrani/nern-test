@@ -2,7 +2,9 @@ package com.atrosys.model;
 
 /**
  * Created by met on 12/14/17.
+ * Service form contract pay options.
  */
+
 public enum PayType {
     TIME_H(1000, "پیش پرداخت", "PR"),
     PERCENT(2000, "پس پرداخت", "PO");

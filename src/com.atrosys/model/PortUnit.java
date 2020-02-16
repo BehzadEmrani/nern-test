@@ -2,7 +2,9 @@ package com.atrosys.model;
 
 /**
  * Created by met on 12/14/17.
+ * Equipment's port type.
  */
+
 public enum PortUnit {
     NM(1000, "نانومتر", "nm"),
     TBPS(2000,"ترابایت در ثانیه", "Tbps"),

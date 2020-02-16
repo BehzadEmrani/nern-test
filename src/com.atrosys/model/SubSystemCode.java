@@ -1,5 +1,9 @@
 package com.atrosys.model;
 
+/**
+ * Customers type.
+ */
+
 public enum SubSystemCode {
     UNIVERSITY(0, "دانشگاه ها و مراکز آموزش عالی",
             "اطلاعات کلی دانشگاه و مرکز آموزش عالی",

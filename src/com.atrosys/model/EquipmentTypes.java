@@ -1,5 +1,9 @@
 package com.atrosys.model;
 
+/**
+ * Network equipments main type options.
+ */
+
 public enum EquipmentTypes {
     PASSIVE(1000, "پسیو"),
     ACTIVE(3000, "اکتیو"),

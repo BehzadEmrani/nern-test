@@ -2,7 +2,9 @@ package com.atrosys.model;
 
 /**
  * Created by met on 10/28/17.
+ * POJO class for customers subtype APIs
  */
+
 public class SubSystemsTypeResponse {
     int value;
     String faStr;

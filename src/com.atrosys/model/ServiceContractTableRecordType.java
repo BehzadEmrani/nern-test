@@ -1,5 +1,9 @@
 package com.atrosys.model;
 
+/**
+ * Contract type for contract table.
+ */
+
 public enum ServiceContractTableRecordType {
     SUBS_CONTRACT(0, "فرم اشتراک"),
     SERVICE_FORM("سرویس فرم");

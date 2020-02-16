@@ -2,7 +2,9 @@ package com.atrosys.model;
 
 /**
  * Created by met on 12/14/17.
+ * Service SLA standard.
  */
+
 public enum SLAType {
     BRONZE(1,"برنز", "B"),
     SILVER("نقره", "S"),

@@ -2,7 +2,9 @@ package com.atrosys.model;
 
 /**
  * Created by mehdisabermahani on 7/28/17.
+ * POJO class which contains city basic info for city apis.
  */
+
 public class CityResponse {
     private Long cityId;
     private String name;

@@ -1,5 +1,9 @@
 package com.atrosys.model;
 
+/**
+ * customer registration request stage.
+ */
+
 public enum UniStatus {
     REGISTER_PAGE_VERIFY(1, "انتظار برای تایید درخواست عضویت"),
     REGISTER_PAGE_ERROR("اصلاح خطا در فرم درخواست عضویت"),

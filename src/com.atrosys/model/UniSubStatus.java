@@ -2,6 +2,10 @@ package com.atrosys.model;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * field of customer registration form which contains error.
+ */
+
 public enum UniSubStatus {
     REGISTER_PAGE_REQUEST_FORM_ERROR(0, "مشکل در فایل درخواست عضویت"),
     REGISTER_PAGE_TOP_MANAGER_ERROR("مشکل در نام بالاترین مقام"),

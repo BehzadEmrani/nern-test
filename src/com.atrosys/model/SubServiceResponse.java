@@ -1,5 +1,8 @@
 package com.atrosys.model;
 
+/**
+ * POJO class for sub services APIs.
+ */
 
 public class SubServiceResponse {
     long id;

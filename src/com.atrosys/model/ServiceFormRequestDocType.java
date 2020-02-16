@@ -1,5 +1,9 @@
 package com.atrosys.model;
 
+/**
+ * Service form documents type
+ */
+
 public enum ServiceFormRequestDocType {
     LETTER("نامه روکش"),
     POST_RECEIPT("رسید پستی"),

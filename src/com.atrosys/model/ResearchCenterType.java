@@ -1,5 +1,9 @@
 package com.atrosys.model;
 
+/**
+ * Research center customers type.
+ */
+
 public enum ResearchCenterType implements SubSystemsType {
     RESEARCH_CENTER_MINIS_SCI(0, "مراکز پژوهشی مورد تایید وزارت علوم,تحقیقات و فناوری", true, PreDataType.FROM_ILENC),
     RESEARCH_CENTER_MINIS_HEALTH("مراکز پژوهشی مورد تایید وزارت بهداشت و درمان و آموزش پزشکی", true, PreDataType.FROM_ILENC),

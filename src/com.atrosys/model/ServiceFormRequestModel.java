@@ -1,5 +1,10 @@
 package com.atrosys.model;
 
+/**
+ * Created by Misagh Dayer
+ * POJO class for API requests to ServiceFormRequest table
+ */
+
 public class ServiceFormRequestModel {
     private Long id;
     private String uniName;

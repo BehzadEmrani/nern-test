@@ -1,5 +1,9 @@
 package com.atrosys.model;
 
+/**
+ * Telecom center type.
+ */
+
 public enum TelecomCenterType {
     TELECOM_CENTER(1000, "مرکز مخابراتی"),
     INFRASTRUCTURE_CENTER(2000, "مرکز زیرساخت");

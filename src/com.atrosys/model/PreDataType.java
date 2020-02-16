@@ -1,5 +1,10 @@
 package com.atrosys.model;
 
+/**
+ * There's some pre-defined data about azad university and etc which used in registration page,
+ * this enum shows data is for which uni type.
+ */
+
 public enum PreDataType {
     FROM_ILENC(0, 11111111111l, "سامانه ی اشخاص حقوقی"),
     AZAD_ISLAMI(10100190358l, "دانشگاه آزاد اسلامی"),

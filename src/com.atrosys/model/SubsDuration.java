@@ -2,7 +2,9 @@ package com.atrosys.model;
 
 /**
  * Created by met on 12/14/17.
+ * Service form contract duration.
  */
+
 public enum SubsDuration {
     MONTH_01(1, "یک ماهه", "01"),
     MONTH_03(3, "سه ماهه", "03"),

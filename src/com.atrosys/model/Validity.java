@@ -2,7 +2,9 @@ package com.atrosys.model;
 
 /**
  * Created by mehdisabermahani on 6/14/17.
+ * validity of user account.
  */
+
 public enum Validity {
     PERMANT_DEACTIVE(0),
     TEMP_DEACTIVE,
