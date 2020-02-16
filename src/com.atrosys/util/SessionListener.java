@@ -17,6 +17,10 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.HashMap;
 
+/**
+ * cookies event listener.
+ */
+
 public class SessionListener implements HttpSessionAttributeListener, HttpSessionListener {
 
     @Override

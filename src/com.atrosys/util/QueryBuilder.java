@@ -4,7 +4,9 @@ import java.util.List;
 
 /**
  * Created by met on 1/29/18.
+ * query string util.
  */
+
 public class QueryBuilder {
     public static String buildWhereEQQuery(List<String[]> parameters) {
         String response = "";

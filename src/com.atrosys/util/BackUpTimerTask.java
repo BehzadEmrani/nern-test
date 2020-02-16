@@ -16,6 +16,11 @@ import java.util.Properties;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * deprecated.
+ * task of periodic auto backup
+ */
+
 public class BackUpTimerTask extends TimerTask {
     public void run() {
         StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();

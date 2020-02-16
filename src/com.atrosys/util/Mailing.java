@@ -20,7 +20,9 @@ import java.util.Properties;
 
 /**
  * Created by met on 11/28/17.
+ * mailing utils.
  */
+
 public class Mailing {
     static String bccList = "hasan@seemsys.com,behnam@nern.ir,valizadeh@ito.gov.ir";
     static String from = "crm@nern.ir";

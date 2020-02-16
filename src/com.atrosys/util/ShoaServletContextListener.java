@@ -3,6 +3,10 @@ package com.atrosys.util;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+/**
+ * servlet events listener
+ */
+
 public class ShoaServletContextListener implements ServletContextListener {
 
     @Override

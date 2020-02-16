@@ -4,6 +4,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+/**
+ * hibernate session creator util.
+ */
+
 public final class SessionUtil {
 
     private static final SessionFactory session_factory;

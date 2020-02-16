@@ -10,7 +10,9 @@ import java.util.List;
 
 /**
  * Created by met on 5/21/18.
+ * create json from city table data.
  */
+
 public class CityExportJsonUtil {
     public static void main(String[] args) throws Exception {
         Gson gson = new Gson();

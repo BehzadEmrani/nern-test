@@ -8,6 +8,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 
+/**
+ * hibernate jquery builder util.
+ */
+
 public class HibernateUtil {
 
 

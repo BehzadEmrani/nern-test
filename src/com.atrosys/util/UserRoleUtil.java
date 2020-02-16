@@ -10,6 +10,10 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * updates user permissions from DB.
+ */
+
 public class UserRoleUtil {
     public static void updateUserRolesFromDb(HttpSession session, Long nationalId) throws Exception {
         List<UserRole> userRoles = UserRoleDAO.findUserRolesByNationalId(nationalId);

@@ -8,7 +8,9 @@ import java.util.Scanner;
 
 /**
  * Created by met on 5/21/18.
+ * Hash a string with pass hashing function.
  */
+
 public class PassHashingUtil {
     public static void main(String[] args) {
         try {

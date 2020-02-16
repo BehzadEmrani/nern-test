@@ -2,7 +2,9 @@ package com.atrosys.util;
 
 /**
  * Created by met on 1/29/18.
+ * POJO class for Query builder parameter data.
  */
+
 public class QueryParameter {
     String colName;
     String value;

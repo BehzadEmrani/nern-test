@@ -1,5 +1,9 @@
 package com.atrosys.util;
 
+/**
+ * checks OS type.
+ */
+
 public class OSValidator {
     private static String OS = System.getProperty("os.name").toLowerCase();
 
