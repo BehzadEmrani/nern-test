@@ -5,6 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Other National research and education network info.
+ */
+
 @Entity
 @Table(name = "world_nern")
 public class WorldNren {

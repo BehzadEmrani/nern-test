@@ -2,6 +2,10 @@ package com.atrosys.entity;
 
 import javax.persistence.*;
 
+/**
+ * equipment instances saves here.
+ */
+
 @Entity
 @Table(name = "equipment")
 public class Equipment {

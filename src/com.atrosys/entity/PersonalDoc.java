@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 /**
  * Created by mehdisabermahani on 6/14/17.
+ *
  */
 @Entity
 @Table(name = "personal_doc")

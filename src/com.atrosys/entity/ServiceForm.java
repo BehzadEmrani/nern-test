@@ -10,6 +10,10 @@ import com.atrosys.model.SubsDuration;
 
 import javax.persistence.*;
 
+/**
+ * each service contract contains some info which stores in here
+ */
+
 @Entity
 @Table(name = "service_form")
 public class ServiceForm {

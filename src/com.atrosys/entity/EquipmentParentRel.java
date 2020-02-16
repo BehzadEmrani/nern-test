@@ -2,6 +2,10 @@ package com.atrosys.entity;
 
 import javax.persistence.*;
 
+/**
+ * equipments parent child relation defined in this table
+ */
+
 @Entity
 @Table(name = "equipment_parent_rel")
 public class EquipmentParentRel {

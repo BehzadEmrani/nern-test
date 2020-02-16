@@ -2,6 +2,10 @@ package com.atrosys.entity;
 
 import javax.persistence.*;
 
+/**
+ * telecom centers phone num prefix
+ */
+
 @Entity
 @Table(name = "telecom_center_pre_fix")
 public class TelecomCenterPreFix {

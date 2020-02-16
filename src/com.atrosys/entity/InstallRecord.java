@@ -2,6 +2,10 @@ package com.atrosys.entity;
 
 import javax.persistence.*;
 
+/**
+ * data of installing an equipment in a telecom center.
+ */
+
 @Entity
 @Table(name = "install_data")
 public class InstallRecord {

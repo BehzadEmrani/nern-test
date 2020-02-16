@@ -2,6 +2,11 @@ package com.atrosys.entity;
 
 import javax.persistence.*;
 
+/**
+ * some users(namayande vezarat behdasht & etc) can approve that an organization can be our customer or not
+ * this data shows this ability
+ */
+
 @Entity
 @Table(name = "approving_role")
 public class ApprovingRole {

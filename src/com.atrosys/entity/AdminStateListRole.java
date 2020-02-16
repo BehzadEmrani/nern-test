@@ -2,6 +2,11 @@ package com.atrosys.entity;
 
 import javax.persistence.*;
 
+/**
+ * state manager user info,
+ * this users only can see customers in one state(ostan)
+ */
+
 @Entity
 @Table(name = "admin_state_list_role")
 public class AdminStateListRole {

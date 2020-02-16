@@ -4,7 +4,9 @@ import javax.persistence.*;
 
 /**
  * Created by mehdisabermahani on 6/14/17.
+ * users active section.(do they access to admin or customer section)
  */
+
 @Entity
 @Table(name = "user_role")
 public class UserRole {

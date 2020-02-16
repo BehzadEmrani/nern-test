@@ -4,7 +4,9 @@ import javax.persistence.*;
 
 /**
  * Created by mehdisabermahani on 6/14/17.
+ * states(ostan) info.
  */
+
 @Entity
 @Table(name = "state")
 public class State {

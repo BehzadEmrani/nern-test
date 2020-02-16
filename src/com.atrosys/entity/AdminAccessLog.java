@@ -4,8 +4,9 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by mehdisabermahani on 6/14/17.
+ * Admin and manager logs for accessing pages.
  */
+
 @Entity
 @Table(name = "admin_access_log")
 public class AdminAccessLog {

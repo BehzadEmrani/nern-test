@@ -6,8 +6,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Created by mehdisabermahani on 6/14/17.
+ * countries info.
  */
+
 @Entity
 @Table(name = "country")
 public class Country {

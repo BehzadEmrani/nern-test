@@ -2,6 +2,10 @@ package com.atrosys.entity;
 
 import javax.persistence.*;
 
+/**
+ * our services
+ */
+
 @Entity
 @Table(name = "service")
 public class Service {

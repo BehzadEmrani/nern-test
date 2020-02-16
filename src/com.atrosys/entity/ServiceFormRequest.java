@@ -3,6 +3,10 @@ package com.atrosys.entity;
 import javax.persistence.*;
 import java.sql.Date;
 
+/**
+ * which user is requesting which service
+ */
+
 @Entity
 @Table(name = "service_form_request")
 public class ServiceFormRequest {

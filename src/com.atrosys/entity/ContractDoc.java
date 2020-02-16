@@ -2,6 +2,10 @@ package com.atrosys.entity;
 
 import javax.persistence.*;
 
+/**
+ * contract documents file
+ */
+
 @Entity
 @Table(name = "contract_doc")
 public class ContractDoc {

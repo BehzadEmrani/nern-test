@@ -3,6 +3,11 @@ package com.atrosys.entity;
 import javax.persistence.*;
 import java.sql.Date;
 
+/**
+ * news sections data.
+ * deprecated.
+ */
+
 @Entity
 @Table(name = "news")
 public class News {

@@ -2,6 +2,10 @@ package com.atrosys.entity;
 
 import javax.persistence.*;
 
+/**
+ * sub services info(zir khedmat)
+ */
+
 @Entity
 @Table(name = "sub_service")
 public class SubService {

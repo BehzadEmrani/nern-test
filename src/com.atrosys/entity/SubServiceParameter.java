@@ -4,6 +4,10 @@ import com.atrosys.model.SLAType;
 
 import javax.persistence.*;
 
+/**
+ * sub service SLA standard.
+ */
+
 @Entity
 @Table(name = "sub_service_parameter")
 public class SubServiceParameter {

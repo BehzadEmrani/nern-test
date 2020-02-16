@@ -4,7 +4,9 @@ import javax.persistence.*;
 
 /**
  * Created by mehdisabermahani on 6/14/17.
+ * cities info.
  */
+
 @Entity
 @Table(name = "city")
 public class City {

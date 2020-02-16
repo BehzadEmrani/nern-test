@@ -4,7 +4,10 @@ import javax.persistence.*;
 
 /**
  * Created by mehdisabermahani on 6/14/17.
+ * managers define some customers that may register and get service(hameye vahed haye daneshgah azad,payam noor & gheyre)
+ * this info used in register sections
  */
+
 @Entity
 @Table(name = "pre_university_data")
 public class PreUniversityData {

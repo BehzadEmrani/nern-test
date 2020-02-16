@@ -3,6 +3,11 @@ package com.atrosys.entity;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
+/**
+ * user feed back for software system error data,
+ * deprecated.
+ */
+
 @Entity
 @Table(name = "feed_back")
 public class FeedBack {

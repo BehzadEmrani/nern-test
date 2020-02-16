@@ -2,6 +2,10 @@ package com.atrosys.entity;
 
 import javax.persistence.*;
 
+/**
+ * customers agent info(namayande)
+ */
+
 @Entity
 @Table(name = "agent")
 public class Agent {

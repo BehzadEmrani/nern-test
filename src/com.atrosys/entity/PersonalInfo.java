@@ -12,7 +12,9 @@ import java.sql.Date;
 
 /**
  * Created by mehdisabermahani on 6/14/17.
+ * each person info in the system.
  */
+
 @Entity
 @Table(name = "personal_info")
 public class PersonalInfo {

@@ -2,6 +2,10 @@ package com.atrosys.entity;
 
 import javax.persistence.*;
 
+/**
+ * each equipment for all instances in a type have some user defined parameters.
+ */
+
 @Entity
 @Table(name = "equipment_type_parameters")
 public class EquipmentTypeParameters {

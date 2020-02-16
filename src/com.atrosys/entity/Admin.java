@@ -2,6 +2,10 @@ package com.atrosys.entity;
 
 import javax.persistence.*;
 
+/**
+ * Admin and manager user data.
+ */
+
 @Entity
 @Table(name = "admin")
 public class Admin {

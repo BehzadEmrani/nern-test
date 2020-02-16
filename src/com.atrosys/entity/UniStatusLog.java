@@ -5,7 +5,9 @@ import java.sql.Timestamp;
 
 /**
  * Created by mehdisabermahani on 6/14/17.
+ * logs for uni registration stage change
  */
+
 @Entity
 @Table(name = "uni_status_log")
 public class UniStatusLog {

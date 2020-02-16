@@ -5,7 +5,9 @@ import java.sql.Timestamp;
 
 /**
  * Created by mehdisabermahani on 6/14/17.
+ * any users log.
  */
+
 @Entity
 @Table(name = "log")
 public class Log {

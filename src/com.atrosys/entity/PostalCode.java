@@ -4,7 +4,9 @@ import javax.persistence.*;
 
 /**
  * Created by mehdisabermahani on 6/14/17.
+ * postal codes pattern defined by user.
  */
+
 @Entity
 @Table(name = "postal_code")
 public class PostalCode {

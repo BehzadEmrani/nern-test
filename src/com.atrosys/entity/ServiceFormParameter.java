@@ -2,6 +2,10 @@ package com.atrosys.entity;
 
 import javax.persistence.*;
 
+/**
+ * service form contracts details
+ */
+
 @Entity
 @Table(name = "service_form_parameter")
 public class ServiceFormParameter {

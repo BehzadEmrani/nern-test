@@ -2,6 +2,10 @@ package com.atrosys.entity;
 
 import javax.persistence.*;
 
+/**
+ * customers defined there buildings which get services.
+ */
+
 @Entity
 @Table(name = "subs_building")
 public class SubsBuilding {

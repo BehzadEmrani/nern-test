@@ -2,6 +2,10 @@ package com.atrosys.entity;
 
 import javax.persistence.*;
 
+/**
+ * each equipment info defined as this entity
+ */
+
 @Entity
 @Table(name = "equipment_type")
 public class EquipmentType {

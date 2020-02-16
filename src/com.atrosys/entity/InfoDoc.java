@@ -3,6 +3,10 @@ package com.atrosys.entity;
 import javax.persistence.*;
 import java.sql.Date;
 
+/**
+ * document files in index page info sections(darbare shoa,shabake elmi chist)
+ */
+
 @Entity
 @Table(name = "info_doc")
 public class InfoDoc {

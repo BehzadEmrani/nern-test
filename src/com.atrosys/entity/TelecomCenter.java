@@ -2,6 +2,10 @@ package com.atrosys.entity;
 
 import javax.persistence.*;
 
+/**
+ * telecom centers info
+ */
+
 @Entity
 @Table(name = "telecom_center")
 public class TelecomCenter {

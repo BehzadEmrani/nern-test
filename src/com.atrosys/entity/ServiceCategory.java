@@ -2,6 +2,10 @@ package com.atrosys.entity;
 
 import javax.persistence.*;
 
+/**
+ * shoa services categories
+ */
+
 @Entity
 @Table(name = "service_category")
 public class ServiceCategory {

@@ -2,6 +2,10 @@ package com.atrosys.entity;
 
 import javax.persistence.*;
 
+/**
+ * type of port for an equipment.
+ */
+
 @Entity
 @Table(name = "equipment_type_port")
 public class EquipmentTypePort {

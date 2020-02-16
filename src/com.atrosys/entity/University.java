@@ -5,7 +5,9 @@ import java.sql.Date;
 
 /**
  * Created by mehdisabermahani on 6/14/17.
+ * customers info.
  */
+
 @Entity
 @Table(name = "university")
 public class University {
